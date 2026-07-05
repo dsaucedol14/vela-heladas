@@ -1,0 +1,16 @@
+{
+  "name": "Vela — Alerta de heladas",
+  "short_name": "Vela",
+  "description": "Sistema experto de alerta de heladas radiativas para producción de manzana en la Sierra Norte de Puebla.",
+  "lang": "es-MX",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0c1326",
+  "theme_color": "#0c1326",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

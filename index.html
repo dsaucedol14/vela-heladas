@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0c1326">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Vela · Alerta de heladas</title>
+<style>
+  :root{
+    --noche-0:#0c1326; --noche-1:#16203a; --superficie:#1b2743;
+    --superficie-2:#223154; --linea:#2b3c63;
+    --escarcha:#eaf2fb; --tenue:#8ea3c4; --mas-tenue:#5f739a;
+    --verde:#37c07a; --amarillo:#f4c430; --naranja:#ef8a3c; --rojo:#e8503f;
+    --azul-rocio:#5aa9e6;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0; background:var(--noche-0); color:var(--escarcha);
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
+  body{background:
+    radial-gradient(120% 60% at 50% -10%, #1d2b4d, transparent 70%),
+    linear-gradient(180deg, var(--noche-1), var(--noche-0) 60%);
+    min-height:100vh; padding:env(safe-area-inset-top) 0 40px;}
+  .app{max-width:460px; margin:0 auto; padding:0 18px;}
+
+  header{padding:26px 2px 14px; display:flex; align-items:center; gap:12px;}
+  header img{width:38px; height:38px; border-radius:11px;}
+  header .t{line-height:1.15;}
+  header .t b{font-size:20px; letter-spacing:.3px; font-weight:750;}
+  header .t span{display:block; font-size:12px; color:var(--tenue); margin-top:2px;}
+
+  /* Pestañas */
+  .tabs{display:flex; background:var(--superficie); border-radius:14px;
+    padding:4px; gap:4px; margin:6px 0 20px;}
+  .tabs button{flex:1; border:0; background:transparent; color:var(--tenue);
+    font-size:14px; font-weight:600; padding:10px; border-radius:10px;
+    cursor:pointer; transition:.18s;}
+  .tabs button[aria-selected="true"]{background:var(--superficie-2);
+    color:var(--escarcha); box-shadow:0 1px 3px rgba(0,0,0,.3);}
+
+  /* Orbe de riesgo — el elemento distintivo */
+  .orbe-wrap{display:flex; flex-direction:column; align-items:center; margin:8px 0 22px;}
+  .orbe{position:relative; width:210px; height:210px;}
+  .orbe svg{width:100%; height:100%; transform:rotate(-90deg);}
+  .orbe .centro{position:absolute; inset:0; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center;}
+  .orbe .nivel{font-size:26px; font-weight:800; letter-spacing:1px;}
+  .orbe .cf{font-size:13px; color:var(--tenue); margin-top:4px;
+    font-variant-numeric:tabular-nums;}
+  .orbe .glow{position:absolute; inset:14px; border-radius:50%;
+    filter:blur(26px); opacity:.35; z-index:-1;}
+
+  .accion{background:var(--superficie); border-radius:14px; padding:14px 16px;
+    font-size:14px; line-height:1.45; border-left:4px solid var(--linea);}
+  .accion b{display:block; font-size:11px; text-transform:uppercase;
+    letter-spacing:.8px; color:var(--tenue); margin-bottom:4px; font-weight:700;}
+
+  /* Sparkline de convergencia */
+  .conv{background:var(--superficie); border-radius:14px; padding:16px;
+    margin-top:14px;}
+  .conv h3, .card h3{margin:0 0 10px; font-size:11px; text-transform:uppercase;
+    letter-spacing:.8px; color:var(--tenue); font-weight:700;}
+  .conv .ley{display:flex; gap:16px; font-size:12px; color:var(--tenue); margin-top:8px;}
+  .conv .ley i{display:inline-block; width:16px; height:0; vertical-align:middle;
+    border-top:2px solid; margin-right:5px;}
+
+  /* Controles manuales */
+  .card{background:var(--superficie); border-radius:14px; padding:16px; margin-top:14px;}
+  .field{margin:14px 0;}
+  .field:first-child{margin-top:4px;}
+  .field label{display:flex; justify-content:space-between; font-size:13px;
+    color:var(--tenue); margin-bottom:8px;}
+  .field label b{color:var(--escarcha); font-weight:700;
+    font-variant-numeric:tabular-nums;}
+  input[type=range]{width:100%; accent-color:var(--azul-rocio); height:26px;}
+  .toggle{display:flex; align-items:center; justify-content:space-between;
+    padding:12px 2px;}
+  .toggle span{font-size:14px;}
+  .switch{position:relative; width:48px; height:28px;}
+  .switch input{opacity:0; width:0; height:0;}
+  .slider{position:absolute; inset:0; background:var(--superficie-2);
+    border-radius:20px; transition:.2s; cursor:pointer;}
+  .slider::before{content:""; position:absolute; width:22px; height:22px; left:3px;
+    top:3px; background:var(--escarcha); border-radius:50%; transition:.2s;}
+  .switch input:checked + .slider{background:var(--azul-rocio);}
+  .switch input:checked + .slider::before{transform:translateX(20px);}
+
+  .btn{display:block; width:100%; border:0; border-radius:12px; padding:14px;
+    font-size:15px; font-weight:700; cursor:pointer; margin-top:10px;}
+  .btn.primario{background:var(--azul-rocio); color:#06203a;}
+  .btn.fantasma{background:var(--superficie-2); color:var(--escarcha);}
+  textarea{width:100%; min-height:120px; background:var(--noche-0);
+    color:var(--escarcha); border:1px solid var(--linea); border-radius:12px;
+    padding:12px; font-family:ui-monospace,monospace; font-size:12px; resize:vertical;}
+  .hint{font-size:12px; color:var(--mas-tenue); line-height:1.5; margin-top:10px;}
+
+  /* Línea de tiempo nocturna */
+  .timeline{display:flex; align-items:flex-end; gap:3px; height:120px;
+    margin:6px 0 2px;}
+  .timeline .col{flex:1; display:flex; flex-direction:column; align-items:center;
+    justify-content:flex-end; height:100%; gap:4px;}
+  .timeline .bar{width:100%; border-radius:4px 4px 0 0; min-height:3px;}
+  .timeline .hh{font-size:9px; color:var(--mas-tenue);}
+
+  /* Reglas disparadas */
+  .reglas{list-style:none; margin:0; padding:0;}
+  .reglas li{display:flex; gap:10px; align-items:baseline; padding:8px 0;
+    border-bottom:1px solid var(--linea); font-size:13.5px; line-height:1.4;}
+  .reglas li:last-child{border-bottom:0;}
+  .reglas .peso{font-family:ui-monospace,monospace; font-weight:700; font-size:13px;
+    min-width:46px; font-variant-numeric:tabular-nums;}
+  .reglas .rid{color:var(--tenue); font-weight:700; min-width:26px;}
+  .pos{color:var(--verde);} .neg{color:var(--rojo);}
+
+  .oculto{display:none !important;}
+  footer{text-align:center; font-size:11px; color:var(--mas-tenue);
+    margin-top:26px; line-height:1.6;}
+  .estado{text-align:center; font-size:11px; color:var(--mas-tenue); margin-top:8px;}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header>
+    <img src="icon-192.png" alt="">
+    <div class="t">
+      <b>Vela</b>
+      <span>Alerta de heladas · manzana, Sierra Norte</span>
+    </div>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" id="tab-ahora">Ahora</button>
+    <button role="tab" aria-selected="false" id="tab-noche">La noche</button>
+  </div>
+
+  <!-- ===================== VISTA: AHORA (manual) ===================== -->
+  <section id="vista-ahora">
+    <div class="orbe-wrap">
+      <div class="orbe">
+        <div class="glow" id="glow"></div>
+        <svg viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="44" fill="none" stroke="var(--superficie-2)" stroke-width="8"/>
+          <circle id="aro" cx="50" cy="50" r="44" fill="none" stroke="var(--verde)"
+                  stroke-width="8" stroke-linecap="round"
+                  stroke-dasharray="276" stroke-dashoffset="276"/>
+        </svg>
+        <div class="centro">
+          <div class="nivel" id="m-nivel">—</div>
+          <div class="cf" id="m-cf">CF —</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accion" id="m-accion"><b>Recomendación</b><span id="m-accion-txt">—</span></div>
+
+    <div class="card">
+      <h3>Condiciones actuales</h3>
+      <div class="field">
+        <label>Temperatura del aire <b><span id="v-temp">5</span> °C</b></label>
+        <input type="range" id="temp" min="-6" max="20" step="0.5" value="5">
+      </div>
+      <div class="field">
+        <label>Humedad relativa <b><span id="v-hr">70</span> %</b></label>
+        <input type="range" id="hr" min="20" max="100" step="1" value="70">
+      </div>
+      <div class="field">
+        <label>Viento <b><span id="v-viento">3</span> km/h</b></label>
+        <input type="range" id="viento" min="0" max="40" step="1" value="3">
+      </div>
+      <div class="field">
+        <label>Nubosidad <b><span id="v-nub">10</span> %</b></label>
+        <input type="range" id="nubosidad" min="0" max="100" step="5" value="10">
+      </div>
+      <div class="field">
+        <label>Hora local <b><span id="v-hora">3</span>:00</b></label>
+        <input type="range" id="hora" min="0" max="23" step="1" value="3">
+      </div>
+      <div class="toggle">
+        <span>Huerto en parte baja o cañada</span>
+        <label class="switch"><input type="checkbox" id="parte_baja"><span class="slider"></span></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Por qué (punto de rocío: <span id="m-td">—</span> °C)</h3>
+      <ul class="reglas" id="m-reglas"></ul>
+    </div>
+  </section>
+
+  <!-- ===================== VISTA: LA NOCHE (serie) ===================== -->
+  <section id="vista-noche" class="oculto">
+    <div class="card">
+      <h3>Fuente de datos</h3>
+      <button class="btn primario" id="btn-ejemplo">Cargar noche de ejemplo</button>
+      <button class="btn fantasma" id="btn-pegar">Pegar JSON del SMN</button>
+      <div id="zona-pegar" class="oculto" style="margin-top:12px;">
+        <textarea id="json-smn" placeholder='[{"hloc":"3","temp":"-0.3","hr":"86","velvien":"1","cc":"0"}, ...]'></textarea>
+        <button class="btn primario" id="btn-procesar" style="margin-top:8px;">Analizar la noche</button>
+        <p class="hint">Pega el arreglo horario del pronóstico por municipios del SMN.
+          Si algún campo tiene otro nombre, edítalo o usa el ejemplo.</p>
+      </div>
+      <div class="toggle">
+        <span>Huerto en parte baja o cañada</span>
+        <label class="switch"><input type="checkbox" id="parte_baja_n"><span class="slider"></span></label>
+      </div>
+    </div>
+
+    <div id="resultado-noche" class="oculto">
+      <div class="orbe-wrap">
+        <div class="orbe">
+          <div class="glow" id="glow-n"></div>
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="44" fill="none" stroke="var(--superficie-2)" stroke-width="8"/>
+            <circle id="aro-n" cx="50" cy="50" r="44" fill="none" stroke="var(--verde)"
+                    stroke-width="8" stroke-linecap="round"
+                    stroke-dasharray="276" stroke-dashoffset="276"/>
+          </svg>
+          <div class="centro">
+            <div class="nivel" id="n-nivel">—</div>
+            <div class="cf" id="n-cf">CF —</div>
+          </div>
+        </div>
+      </div>
+      <div class="accion" id="n-accion"><b>Dictamen de la noche · pico a las <span id="n-hora">—</span>:00</b><span id="n-accion-txt">—</span></div>
+
+      <div class="conv">
+        <h3>Riesgo hora por hora</h3>
+        <div class="timeline" id="timeline"></div>
+      </div>
+
+      <div class="card">
+        <h3>Por qué en el momento de mayor riesgo</h3>
+        <ul class="reglas" id="n-reglas"></ul>
+      </div>
+    </div>
+  </section>
+
+  <footer id="pie">
+    Factores de certeza (MYCIN) · punto de rocío por Magnus<br>
+    <span id="offline-badge">Funciona sin conexión</span>
+  </footer>
+  <div class="estado" id="estado"></div>
+</div>
+
+<script>
+/* ============================================================
+   NÚCLEO EXPERTO (idéntico a la versión Python)
+   ============================================================ */
+function combinarCF(a,b){
+  if(a>=0 && b>=0) return a + b*(1-a);
+  if(a<0 && b<0)   return a + b*(1+a);
+  return (a+b)/(1 - Math.min(Math.abs(a),Math.abs(b)));
+}
+function combinarLista(cfs){
+  if(!cfs.length) return 0;
+  let acc=cfs[0];
+  for(let i=1;i<cfs.length;i++) acc=combinarCF(acc,cfs[i]);
+  return Math.max(-1, Math.min(1, acc));
+}
+function magnusTd(temp,hr){
+  hr=Math.max(1,Math.min(100,hr));
+  const g=Math.log(hr/100)+(17.27*temp)/(237.7+temp);
+  return (237.7*g)/(17.27-g);
+}
+const REGLAS=[
+  {id:"R1",cf:+0.80,desc:"Punto de rocío ≤ 0 °C (piso térmico bajo cero)", cond:h=>h.td<=0},
+  {id:"R2",cf:+0.45,desc:"Punto de rocío entre 0 y +2 °C",                 cond:h=>h.td>0&&h.td<=2},
+  {id:"R3",cf:+0.20,desc:"Punto de rocío entre +2 y +4 °C",                cond:h=>h.td>2&&h.td<=4},
+  {id:"R4",cf:+0.70,desc:"Cielo despejado (nubosidad ≤ 25 %)",            cond:h=>h.nubosidad<=25},
+  {id:"R5",cf:+0.70,desc:"Viento en calma (≤ 5 km/h)",                    cond:h=>h.viento<=5},
+  {id:"R6",cf:+0.30,desc:"Aire seco (HR ≤ 40 %)",                         cond:h=>h.hr<=40},
+  {id:"R7",cf:+0.40,desc:"Atardecer frío (18–20 h y T ≤ 6 °C)",          cond:h=>[18,19,20].includes(h.hora)&&h.temp<=6},
+  {id:"R8",cf:+0.55,desc:"Madrugada crítica (03–07 h y T ≤ 4 °C)",        cond:h=>h.hora>=3&&h.hora<=7&&h.temp<=4},
+  {id:"R9",cf:+0.35,desc:"Huerto en parte baja / cañada (drenaje de aire frío)", cond:h=>!!h.parte_baja},
+  {id:"R10",cf:-0.65,desc:"Nubosidad alta (≥ 75 %): las nubes atrapan la radiación", cond:h=>h.nubosidad>=75},
+  {id:"R11",cf:-0.65,desc:"Viento moderado/fuerte (≥ 15 km/h): mezcla el aire",      cond:h=>h.viento>=15},
+  {id:"R12",cf:-0.50,desc:"Atardecer templado (T ≥ 12 °C)",              cond:h=>h.temp>=12},
+  {id:"R13",cf:-0.55,desc:"Punto de rocío alto (≥ +5 °C)",               cond:h=>h.td>=5},
+];
+const NIVELES=[
+  {min:0.70, nivel:"CRÍTICA",    color:"var(--rojo)",    hex:"#e8503f", accion:"Activa riego por aspersión o calentadores y pon alarma nocturna."},
+  {min:0.40, nivel:"ALERTA",     color:"var(--naranja)", hex:"#ef8a3c", accion:"Prepara las medidas de protección y monitorea de forma continua."},
+  {min:0.15, nivel:"VIGILANCIA", color:"var(--amarillo)",hex:"#f4c430", accion:"Observa la evolución hacia la madrugada."},
+  {min:-2,   nivel:"NULO",       color:"var(--verde)",   hex:"#37c07a", accion:"Sin riesgo relevante de helada radiativa."},
+];
+function clasificar(cf){ return NIVELES.find(n=>cf>=n.min); }
+
+function inferir(h){
+  h.td = Math.round(magnusTd(h.temp,h.hr)*10)/10;
+  const disparadas = REGLAS.filter(r=>r.cond(h));
+  const cf = combinarLista(disparadas.map(r=>r.cf));
+  return {cf, disparadas, nivel:clasificar(cf), td:h.td};
+}
+
+/* ============================================================
+   DATOS DE EJEMPLO (una noche de heladas, formato SMN)
+   ============================================================ */
+const NOCHE_EJEMPLO=[
+ {hloc:"18",temp:"12.0",hr:"52",velvien:"16",cc:"70"},
+ {hloc:"19",temp:"9.5", hr:"56",velvien:"11",cc:"50"},
+ {hloc:"20",temp:"7.5", hr:"60",velvien:"7", cc:"35"},
+ {hloc:"21",temp:"5.5", hr:"66",velvien:"4", cc:"20"},
+ {hloc:"22",temp:"4.0", hr:"70",velvien:"3", cc:"10"},
+ {hloc:"23",temp:"3.0", hr:"74",velvien:"2", cc:"5"},
+ {hloc:"0", temp:"2.0", hr:"78",velvien:"2", cc:"5"},
+ {hloc:"1", temp:"1.2", hr:"81",velvien:"1", cc:"0"},
+ {hloc:"2", temp:"0.4", hr:"84",velvien:"1", cc:"0"},
+ {hloc:"3", temp:"-0.3",hr:"86",velvien:"1", cc:"0"},
+ {hloc:"4", temp:"-1.0",hr:"87",velvien:"2", cc:"5"},
+ {hloc:"5", temp:"-1.5",hr:"88",velvien:"1", cc:"5"},
+ {hloc:"6", temp:"-1.3",hr:"87",velvien:"2", cc:"10"},
+ {hloc:"7", temp:"-0.3",hr:"84",velvien:"3", cc:"20"},
+ {hloc:"8", temp:"2.0", hr:"78",velvien:"5", cc:"30"},
+];
+
+/* Adaptador SMN -> hechos internos */
+function normalizar(reg, parteBaja){
+  const num=v=>{const x=parseFloat(v); return isNaN(x)?0:x;};
+  return {
+    temp:num(reg.temp), hr:num(reg.hr), viento:num(reg.velvien),
+    nubosidad:num(reg.cc), hora:parseInt(reg.hloc)||0, parte_baja:parteBaja,
+  };
+}
+
+/* ============================================================
+   UI — utilidades
+   ============================================================ */
+const CIRC=276; // 2πr con r=44
+function pintarOrbe(aro, glow, nivelTxt, cfTxt, res){
+  const t=(res.cf+1)/2;                 // -1..1 -> 0..1
+  aro.style.stroke=res.nivel.color;
+  aro.style.strokeDashoffset = CIRC*(1-Math.max(0,t));
+  glow.style.background=res.nivel.hex;
+  nivelTxt.textContent=res.nivel.nivel;
+  nivelTxt.style.color=res.nivel.color;
+  cfTxt.textContent="CF "+(res.cf>=0?"+":"")+res.cf.toFixed(2);
+}
+function listaReglas(ul, disparadas){
+  const orden=[...disparadas].sort((a,b)=>b.cf-a.cf);
+  ul.innerHTML = orden.map(r=>`
+    <li><span class="peso ${r.cf>0?'pos':'neg'}">${r.cf>0?'+':''}${r.cf.toFixed(2)}</span>
+        <span class="rid">${r.id}</span><span>${r.desc}</span></li>`).join("")
+    || `<li><span>Ninguna regla se disparó.</span></li>`;
+}
+
+/* ============================================================
+   VISTA: AHORA (evaluación en vivo)
+   ============================================================ */
+const ctrl=["temp","hr","viento","nubosidad","hora"];
+function evaluarAhora(){
+  const h={
+    temp:+temp.value, hr:+hr.value, viento:+viento.value,
+    nubosidad:+nubosidad.value, hora:+hora.value,
+    parte_baja:parte_baja.checked,
+  };
+  v_temp.textContent=(+temp.value).toFixed(temp.value%1?1:0);
+  v_hr.textContent=hr.value; v_viento.textContent=viento.value;
+  v_nub.textContent=nubosidad.value; v_hora.textContent=hora.value;
+  const res=inferir(h);
+  pintarOrbe(aro, glow, m_nivel, m_cf, res);
+  m_td.textContent=res.td.toFixed(1);
+  m_accion_txt.textContent=res.nivel.accion;
+  document.getElementById("m-accion").style.borderLeftColor=res.nivel.color;
+  listaReglas(m_reglas, res.disparadas);
+}
+ctrl.forEach(id=>document.getElementById(id).addEventListener("input",evaluarAhora));
+parte_baja.addEventListener("change",evaluarAhora);
+
+/* ============================================================
+   VISTA: LA NOCHE (serie horaria)
+   ============================================================ */
+function analizarNoche(registros){
+  const pb=document.getElementById("parte_baja_n").checked;
+  const filas=registros.map(r=>{
+    const h=normalizar(r,pb); return {h, res:inferir(h)};
+  });
+  const pico=filas.reduce((a,b)=>b.res.cf>a.res.cf?b:a);
+
+  pintarOrbe(aro_n, document.getElementById("glow-n"),
+             document.getElementById("n-nivel"),
+             document.getElementById("n-cf"), pico.res);
+  document.getElementById("n-hora").textContent=String(pico.h.hora).padStart(2,"0");
+  document.getElementById("n-accion-txt").textContent=pico.res.nivel.accion;
+  document.getElementById("n-accion").style.borderLeftColor=pico.res.nivel.color;
+  listaReglas(document.getElementById("n-reglas"), pico.res.disparadas);
+
+  // Línea de tiempo
+  const tl=document.getElementById("timeline");
+  tl.innerHTML=filas.map(f=>{
+    const alt=Math.round(Math.max(4,(f.res.cf+1)/2*100));
+    return `<div class="col">
+      <div class="bar" style="height:${alt}%;background:${f.res.nivel.color}"
+           title="${String(f.h.hora).padStart(2,'0')}:00 · CF ${f.res.cf.toFixed(2)}"></div>
+      <div class="hh">${String(f.h.hora).padStart(2,'0')}</div></div>`;
+  }).join("");
+
+  document.getElementById("resultado-noche").classList.remove("oculto");
+}
+document.getElementById("btn-ejemplo").addEventListener("click",()=>analizarNoche(NOCHE_EJEMPLO));
+document.getElementById("btn-pegar").addEventListener("click",()=>{
+  document.getElementById("zona-pegar").classList.toggle("oculto");
+});
+document.getElementById("btn-procesar").addEventListener("click",()=>{
+  const est=document.getElementById("estado");
+  try{
+    let d=JSON.parse(document.getElementById("json-smn").value);
+    if(!Array.isArray(d)) d=d.data||[];
+    if(!d.length){ est.textContent="El JSON no contiene registros horarios."; return; }
+    est.textContent=""; analizarNoche(d);
+  }catch(e){ est.textContent="No se pudo leer el JSON. Revisa el formato."; }
+});
+document.getElementById("parte_baja_n").addEventListener("change",()=>{
+  if(!document.getElementById("resultado-noche").classList.contains("oculto"))
+    document.getElementById("btn-ejemplo").click();
+});
+
+/* ============================================================
+   Pestañas
+   ============================================================ */
+function verTab(cual){
+  const ahora=cual==="ahora";
+  document.getElementById("tab-ahora").setAttribute("aria-selected",ahora);
+  document.getElementById("tab-noche").setAttribute("aria-selected",!ahora);
+  document.getElementById("vista-ahora").classList.toggle("oculto",!ahora);
+  document.getElementById("vista-noche").classList.toggle("oculto",ahora);
+}
+document.getElementById("tab-ahora").addEventListener("click",()=>verTab("ahora"));
+document.getElementById("tab-noche").addEventListener("click",()=>verTab("noche"));
+
+/* Arranque */
+evaluarAhora();
+
+/* Service worker (solo si está servido por http/https, no en archivo local) */
+if("serviceWorker" in navigator && location.protocol.startsWith("http")){
+  navigator.serviceWorker.register("sw.js").catch(()=>{});
+}
+window.addEventListener("online", ()=>{document.getElementById("offline-badge").textContent="Funciona sin conexión";});
+</script>
+</body>
+</html>
