@@ -328,6 +328,7 @@ function normalizar(reg, parteBaja){
    UI — utilidades
    ============================================================ */
 const CIRC=276; // 2πr con r=44
+const $ = id => document.getElementById(id);
 function pintarOrbe(aro, glow, nivelTxt, cfTxt, res){
   const t=(res.cf+1)/2;                 // -1..1 -> 0..1
   aro.style.stroke=res.nivel.color;
@@ -351,22 +352,25 @@ function listaReglas(ul, disparadas){
 const ctrl=["temp","hr","viento","nubosidad","hora"];
 function evaluarAhora(){
   const h={
-    temp:+temp.value, hr:+hr.value, viento:+viento.value,
-    nubosidad:+nubosidad.value, hora:+hora.value,
-    parte_baja:parte_baja.checked,
+    temp:+$("temp").value, hr:+$("hr").value, viento:+$("viento").value,
+    nubosidad:+$("nubosidad").value, hora:+$("hora").value,
+    parte_baja:$("parte_baja").checked,
   };
-  v_temp.textContent=(+temp.value).toFixed(temp.value%1?1:0);
-  v_hr.textContent=hr.value; v_viento.textContent=viento.value;
-  v_nub.textContent=nubosidad.value; v_hora.textContent=hora.value;
+  const tv=$("temp").value;
+  $("v-temp").textContent=(+tv).toFixed(tv%1?1:0);
+  $("v-hr").textContent=$("hr").value;
+  $("v-viento").textContent=$("viento").value;
+  $("v-nub").textContent=$("nubosidad").value;
+  $("v-hora").textContent=$("hora").value;
   const res=inferir(h);
-  pintarOrbe(aro, glow, m_nivel, m_cf, res);
-  m_td.textContent=res.td.toFixed(1);
-  m_accion_txt.textContent=res.nivel.accion;
-  document.getElementById("m-accion").style.borderLeftColor=res.nivel.color;
-  listaReglas(m_reglas, res.disparadas);
+  pintarOrbe($("aro"), $("glow"), $("m-nivel"), $("m-cf"), res);
+  $("m-td").textContent=res.td.toFixed(1);
+  $("m-accion-txt").textContent=res.nivel.accion;
+  $("m-accion").style.borderLeftColor=res.nivel.color;
+  listaReglas($("m-reglas"), res.disparadas);
 }
-ctrl.forEach(id=>document.getElementById(id).addEventListener("input",evaluarAhora));
-parte_baja.addEventListener("change",evaluarAhora);
+ctrl.forEach(id=>$(id).addEventListener("input",evaluarAhora));
+$("parte_baja").addEventListener("change",evaluarAhora);
 
 /* ============================================================
    VISTA: LA NOCHE (serie horaria)
@@ -378,9 +382,7 @@ function analizarNoche(registros){
   });
   const pico=filas.reduce((a,b)=>b.res.cf>a.res.cf?b:a);
 
-  pintarOrbe(aro_n, document.getElementById("glow-n"),
-             document.getElementById("n-nivel"),
-             document.getElementById("n-cf"), pico.res);
+  pintarOrbe($("aro-n"), $("glow-n"), $("n-nivel"), $("n-cf"), pico.res);
   document.getElementById("n-hora").textContent=String(pico.h.hora).padStart(2,"0");
   document.getElementById("n-accion-txt").textContent=pico.res.nivel.accion;
   document.getElementById("n-accion").style.borderLeftColor=pico.res.nivel.color;
