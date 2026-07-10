@@ -316,11 +316,37 @@ const NOCHE_EJEMPLO=[
 ];
 
 /* Adaptador SMN -> hechos internos */
+
+// El servicio por hora del SMN no da nubosidad numérica, sino una
+// descripción de cielo en texto. La traducimos a un % aproximado.
+function nubosidadDesdeCielo(desc){
+  const d = (desc || "").toLowerCase();
+  if (d.includes("cubierto"))            return 100;
+  if (d.includes("mayormente nublado"))  return 80;
+  if (d.includes("medio nublado") || d.includes("parcial")) return 50;
+  if (d.includes("intervalos") || d.includes("dispersas") || d.includes("poco nublado")) return 30;
+  if (d.includes("mayormente despejado")) return 15;
+  if (d.includes("nublado"))             return 90;
+  if (d.includes("despejado"))           return 5;
+  return 40;  // descripción no reconocida: valor intermedio
+}
+
+// El SMN entrega la hora como marca de tiempo '20260708T18'; extraemos la hora.
+function horaDesdeHloc(hloc){
+  const s = String(hloc);
+  if (s.includes("T")) return parseInt(s.split("T")[1].slice(0, 2)) || 0;
+  return parseInt(s) || 0;   // formato simple: ya es la hora
+}
+
 function normalizar(reg, parteBaja){
-  const num=v=>{const x=parseFloat(v); return isNaN(x)?0:x;};
+  const num = v => { const x = parseFloat(v); return isNaN(x) ? 0 : x; };
+  // Nubosidad: usa 'cc' numérico si viene; si no, deriva del texto del cielo.
+  const nub = (reg.cc !== undefined && reg.cc !== null && reg.cc !== "")
+    ? num(reg.cc)
+    : nubosidadDesdeCielo(reg.desciel || reg.cielo);
   return {
-    temp:num(reg.temp), hr:num(reg.hr), viento:num(reg.velvien),
-    nubosidad:num(reg.cc), hora:parseInt(reg.hloc)||0, parte_baja:parteBaja,
+    temp: num(reg.temp), hr: num(reg.hr), viento: num(reg.velvien),
+    nubosidad: nub, hora: horaDesdeHloc(reg.hloc), parte_baja: parteBaja,
   };
 }
 
