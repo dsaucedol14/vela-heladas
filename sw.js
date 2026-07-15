@@ -1,7 +1,7 @@
 /* Service worker de Vela — cachea la app para uso sin conexión.
    Solo tiene efecto cuando la app se sirve por http/https (p. ej. GitHub Pages),
    no al abrir el archivo local. */
-const CACHE = "vela-v3";
+const CACHE = "vela-v6";
 const ASSETS = [
   ".",
   "index.html",
@@ -25,7 +25,21 @@ self.addEventListener("activate", (e) => {
 });
 
 self.addEventListener("fetch", (e) => {
-  // Estrategia: cache primero, con respaldo a la red (la app funciona offline).
+  const url = new URL(e.request.url);
+
+  // Datos del SMN: red primero (frescos), con cache como respaldo offline.
+  if (url.pathname.endsWith("datos_smn.json")) {
+    e.respondWith(
+      fetch(e.request).then((r) => {
+        const copia = r.clone();
+        caches.open(CACHE).then((c) => c.put(e.request, copia));
+        return r;
+      }).catch(() => caches.match(e.request))
+    );
+    return;
+  }
+
+  // Resto de la app: cache primero (funciona offline).
   e.respondWith(
     caches.match(e.request).then((r) => r || fetch(e.request))
   );

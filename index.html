@@ -193,8 +193,10 @@
   <section id="vista-noche" class="oculto">
     <div class="card">
       <h3>Fuente de datos</h3>
-      <button class="btn primario" id="btn-ejemplo">Cargar noche de ejemplo</button>
-      <button class="btn fantasma" id="btn-pegar">Pegar JSON del SMN</button>
+      <button class="btn primario" id="btn-smn">Cargar pronóstico del SMN</button>
+      <div id="smn-estado" class="hint" style="margin:6px 2px 0;"></div>
+      <button class="btn fantasma" id="btn-ejemplo" style="margin-top:10px;">Cargar noche de ejemplo</button>
+      <button class="btn fantasma" id="btn-pegar">Pegar JSON del SMN (manual)</button>
       <div id="zona-pegar" class="oculto" style="margin-top:12px;">
         <textarea id="json-smn" placeholder='[{"hloc":"3","temp":"-0.3","hr":"86","velvien":"1","cc":"0"}, ...]'></textarea>
         <button class="btn primario" id="btn-procesar" style="margin-top:8px;">Analizar la noche</button>
@@ -278,6 +280,16 @@ const REGLAS=[
   {id:"R11",cf:-0.65,desc:"Viento moderado/fuerte (≥ 15 km/h): mezcla el aire",      cond:h=>h.viento>=15},
   {id:"R12",cf:-0.50,desc:"Atardecer templado (T ≥ 12 °C)",              cond:h=>h.temp>=12},
   {id:"R13",cf:-0.55,desc:"Punto de rocío alto (≥ +5 °C)",               cond:h=>h.td>=5},
+
+  // ===== Reglas extendidas (R14–R20): usan telemetría adicional del SMN =====
+  // Si el dato no está disponible (p. ej. entrada manual), la regla no se dispara.
+  {id:"R16",cf:+0.50,desc:"Margen T−Td ≤ 2 °C al atardecer (18–20 h)",     cond:h=>[18,19,20].includes(h.hora) && (h.temp-h.td)<=2},
+  {id:"R20",cf:+0.30,desc:"Saturación con punto de rocío bajo cero (HR ≥ 90 % y Td ≤ 0)", cond:h=>h.hr>=90 && h.td<=0},
+  {id:"R17",cf:+0.10,desc:"Temporada de heladas (nov–feb): factor de fondo", cond:h=>[11,12,1,2].includes(h.mes)},
+  {id:"R18",cf:+0.40,desc:"Enfriamiento rápido con aire ya frío (descenso ≥ 2 °C y T ≤ 6 °C)", cond:h=>h.delta_t!=null && h.delta_t<=-2 && h.temp<=6},
+  {id:"R19",cf:+0.25,desc:"Viento del cuadrante norte (advección de aire frío)", cond:h=>h.dir_viento!=null && (h.dir_viento>=315||h.dir_viento<=45)},
+  {id:"R14",cf:-0.55,desc:"Probabilidad de precipitación alta (≥ 60 %)",   cond:h=>h.prob_prec!=null && h.prob_prec>=60},
+  {id:"R15",cf:-0.45,desc:"Ráfagas fuertes (≥ 20 km/h): mezcla la capa de aire", cond:h=>h.rafaga!=null && h.rafaga>=20},
 ];
 const NIVELES=[
   {min:0.70, nivel:"CRÍTICA",    color:"var(--rojo)",    hex:"#e8503f", accion:"Activa riego por aspersión o calentadores y pon alarma nocturna."},
@@ -338,8 +350,17 @@ function horaDesdeHloc(hloc){
   return parseInt(s) || 0;   // formato simple: ya es la hora
 }
 
+// Extrae el mes (1-12) de la marca '20260708T18' o de una fecha '2026-07-08'.
+function mesDesdeHloc(hloc, dloc){
+  const s = String(hloc);
+  if (s.includes("T") && s.length >= 6) return parseInt(s.slice(4,6)) || null;
+  if (dloc && String(dloc).includes("-")) return parseInt(String(dloc).split("-")[1]) || null;
+  return null;
+}
+
 function normalizar(reg, parteBaja){
   const num = v => { const x = parseFloat(v); return isNaN(x) ? 0 : x; };
+  const numN = v => { if (v===undefined||v===null||v==="") return null; const x=parseFloat(v); return isNaN(x)?null:x; };
   // Nubosidad: usa 'cc' numérico si viene; si no, deriva del texto del cielo.
   const nub = (reg.cc !== undefined && reg.cc !== null && reg.cc !== "")
     ? num(reg.cc)
@@ -347,6 +368,10 @@ function normalizar(reg, parteBaja){
   return {
     temp: num(reg.temp), hr: num(reg.hr), viento: num(reg.velvien),
     nubosidad: nub, hora: horaDesdeHloc(reg.hloc), parte_baja: parteBaja,
+    mes: mesDesdeHloc(reg.hloc, reg.dloc),
+    prob_prec: numN(reg.probprec),   // R14
+    rafaga: numN(reg.raf),           // R15
+    dir_viento: numN(reg.dirvieng),  // R19
   };
 }
 
@@ -403,9 +428,12 @@ $("parte_baja").addEventListener("change",evaluarAhora);
    ============================================================ */
 function analizarNoche(registros){
   const pb=document.getElementById("parte_baja_n").checked;
-  const filas=registros.map(r=>{
-    const h=normalizar(r,pb); return {h, res:inferir(h)};
-  });
+  const hechos=registros.map(r=>normalizar(r,pb));
+  // Tasa de enfriamiento respecto a la hora anterior (regla R18)
+  for(let i=1;i<hechos.length;i++){
+    hechos[i].delta_t = Math.round((hechos[i].temp - hechos[i-1].temp)*10)/10;
+  }
+  const filas=hechos.map(h=>({h, res:inferir(h)}));
   const pico=filas.reduce((a,b)=>b.res.cf>a.res.cf?b:a);
 
   pintarOrbe($("aro-n"), $("glow-n"), $("n-nivel"), $("n-cf"), pico.res);
@@ -427,6 +455,35 @@ function analizarNoche(registros){
   document.getElementById("resultado-noche").classList.remove("oculto");
 }
 document.getElementById("btn-ejemplo").addEventListener("click",()=>analizarNoche(NOCHE_EJEMPLO));
+
+// Descarga automática desde datos_smn.json (mismo dominio, sin CORS).
+// Lo genera el robot de GitHub Actions cada hora.
+function haceCuanto(iso){
+  const t = new Date(iso);
+  if (isNaN(t)) return "";
+  const min = Math.round((Date.now() - t.getTime()) / 60000);
+  if (min < 1)  return "hace un momento";
+  if (min < 60) return `hace ${min} min`;
+  const h = Math.round(min/60);
+  return h < 24 ? `hace ${h} h` : `hace ${Math.round(h/24)} d`;
+}
+async function cargarDelSMN(){
+  const est = document.getElementById("smn-estado");
+  est.textContent = "Descargando pronóstico del SMN…";
+  try{
+    const resp = await fetch("datos_smn.json", { cache: "no-store" });
+    if (!resp.ok) throw new Error("no-file");
+    const j = await resp.json();
+    const datos = Array.isArray(j) ? j : (j.datos || []);
+    if (!datos.length) throw new Error("vacio");
+    est.textContent = `Pronóstico de ${j.municipio||"Huauchinango"} · actualizado ${haceCuanto(j.actualizado)}`;
+    analizarNoche(datos);
+  }catch(e){
+    est.textContent = "Aún no hay datos del SMN disponibles. Usa la noche de ejemplo o pega el JSON manualmente.";
+  }
+}
+document.getElementById("btn-smn").addEventListener("click", cargarDelSMN);
+
 document.getElementById("btn-pegar").addEventListener("click",()=>{
   document.getElementById("zona-pegar").classList.toggle("oculto");
 });
