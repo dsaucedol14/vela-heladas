@@ -14,14 +14,16 @@
     --escarcha:#eaf2fb; --tenue:#8ea3c4; --mas-tenue:#5f739a;
     --verde:#37c07a; --amarillo:#f4c430; --naranja:#ef8a3c; --rojo:#e8503f;
     --azul-rocio:#5aa9e6;
+    --brillo-nivel:#1d2b4d;
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
   html,body{margin:0; background:var(--noche-0); color:var(--escarcha);
     font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
   body{background:
-    radial-gradient(120% 60% at 50% -10%, #1d2b4d, transparent 70%),
+    radial-gradient(120% 60% at 50% -10%, var(--brillo-nivel), transparent 70%),
     linear-gradient(180deg, var(--noche-1), var(--noche-0) 60%);
-    min-height:100vh; padding:env(safe-area-inset-top) 0 40px;}
+    min-height:100vh; padding:env(safe-area-inset-top) 0 40px;
+    transition:background-color .8s ease;}
   .app{max-width:460px; margin:0 auto; padding:0 18px;}
 
   header{padding:26px 2px 14px; display:flex; align-items:center; gap:12px;}
@@ -96,12 +98,21 @@
   .hint{font-size:12px; color:var(--mas-tenue); line-height:1.5; margin-top:10px;}
 
   /* Línea de tiempo nocturna */
-  .timeline{display:flex; align-items:flex-end; gap:3px; height:120px;
-    margin:6px 0 2px;}
+  .timeline{position:relative; display:flex; align-items:flex-end; gap:3px;
+    height:120px; margin:20px 0 2px;}
   .timeline .col{flex:1; display:flex; flex-direction:column; align-items:center;
-    justify-content:flex-end; height:100%; gap:4px;}
-  .timeline .bar{width:100%; border-radius:4px 4px 0 0; min-height:3px;}
+    justify-content:flex-end; height:100%; gap:4px; cursor:pointer;}
+  .timeline .bar{width:100%; border-radius:4px 4px 0 0; min-height:3px;
+    transition:opacity .15s, outline-color .15s; outline:2px solid transparent;
+    outline-offset:1px;}
   .timeline .hh{font-size:9px; color:var(--mas-tenue);}
+  .timeline .col.activa .bar{outline-color:var(--escarcha);}
+  .timeline .col:not(.activa):hover .bar{opacity:.8;}
+  .timeline .umbral{position:absolute; left:0; right:0; border-top:1px dashed var(--linea);}
+  .timeline .umbral span{position:absolute; right:0; top:-13px; font-size:8.5px;
+    color:var(--mas-tenue); letter-spacing:.3px;}
+  #btn-volver-pico{width:auto; display:inline-block; margin:0 0 12px;
+    padding:7px 12px; font-size:12px;}
 
   /* Reglas disparadas */
   .reglas{list-style:none; margin:0; padding:0;}
@@ -237,8 +248,10 @@
       </div>
 
       <div class="card">
-        <h3>Por qué en el momento de mayor riesgo</h3>
+        <h3 id="n-reglas-titulo">Por qué en el momento de mayor riesgo</h3>
+        <button class="btn fantasma oculto" id="btn-volver-pico">Volver al pico ▲</button>
         <ul class="reglas" id="n-reglas"></ul>
+        <p class="hint">Toca una barra de la línea de tiempo para ver por qué esa hora tuvo ese nivel.</p>
       </div>
     </div>
   </section>
@@ -453,6 +466,20 @@ function normalizar(reg, parteBaja){
    ============================================================ */
 const CIRC=276; // 2πr con r=44
 const $ = id => document.getElementById(id);
+
+// Mezcla un color de nivel con el azul de fondo base, para un brillo
+// ambiental sutil (no un color plano y saturado detrás de toda la app).
+function mezclarConFondo(hex, factor=0.4){
+  const base=[29,43,77]; // #1d2b4d, el brillo original fijo
+  const c=hex.replace("#","");
+  const r=parseInt(c.slice(0,2),16), g=parseInt(c.slice(2,4),16), b=parseInt(c.slice(4,6),16);
+  const mezcla=(canalBase,canal)=>Math.round(canalBase*(1-factor)+canal*factor);
+  return `rgb(${mezcla(base[0],r)},${mezcla(base[1],g)},${mezcla(base[2],b)})`;
+}
+function aplicarFondoNivel(hex){
+  document.documentElement.style.setProperty("--brillo-nivel", mezclarConFondo(hex));
+}
+
 function pintarOrbe(aro, glow, nivelTxt, cfTxt, res){
   const t=(res.cf+1)/2;                 // -1..1 -> 0..1
   aro.style.stroke=res.nivel.color;
@@ -489,6 +516,7 @@ function evaluarAhora(){
   $("v-hora").textContent=$("hora").value;
   const res=inferir(h);
   pintarOrbe($("aro"), $("glow"), $("m-nivel"), $("m-cf"), res);
+  aplicarFondoNivel(res.nivel.hex);
   $("m-td").textContent=res.td.toFixed(1);
   $("m-accion-txt").textContent=res.nivel.accion;
   $("m-accion").style.borderLeftColor=res.nivel.color;
@@ -512,16 +540,21 @@ function analizarNoche(registros){
   const pico=filas.reduce((a,b)=>b.res.cf>a.res.cf?b:a);
 
   pintarOrbe($("aro-n"), $("glow-n"), $("n-nivel"), $("n-cf"), pico.res);
+  aplicarFondoNivel(pico.res.nivel.hex);
   document.getElementById("n-hora").textContent=String(pico.h.hora).padStart(2,"0");
   document.getElementById("n-accion-txt").textContent=pico.res.nivel.accion;
   document.getElementById("n-accion").style.borderLeftColor=pico.res.nivel.color;
-  listaReglas(document.getElementById("n-reglas"), pico.res.disparadas);
 
-  // Línea de tiempo
+  // Línea de tiempo: barras de CF por hora + líneas de referencia de los
+  // umbrales de nivel (mismos umbrales que NIVELES, en % de altura).
+  const UMBRALES_TIMELINE=[{v:0.70,etq:"Crítica"},{v:0.40,etq:"Alerta"},{v:0.15,etq:"Vigil."}];
+  const lineasHtml=UMBRALES_TIMELINE.map(u=>
+    `<div class="umbral" style="bottom:${(u.v+1)/2*100}%"><span>${u.etq}</span></div>`
+  ).join("");
   const tl=document.getElementById("timeline");
-  tl.innerHTML=filas.map(f=>{
+  tl.innerHTML=lineasHtml + filas.map((f,i)=>{
     const alt=Math.round(Math.max(4,(f.res.cf+1)/2*100));
-    return `<div class="col">
+    return `<div class="col" data-idx="${i}">
       <div class="bar" style="height:${alt}%;background:${f.res.nivel.color}"
            title="${String(f.h.hora).padStart(2,'0')}:00 · CF ${f.res.cf.toFixed(2)}"></div>
       <div class="hh">${String(f.h.hora).padStart(2,'0')}</div></div>`;
@@ -529,7 +562,34 @@ function analizarNoche(registros){
 
   document.getElementById("resultado-noche").classList.remove("oculto");
   ultimoNoche={filas,pico};
+  mostrarDetalleHora(filas.indexOf(pico));
 }
+
+// Muestra en la tarjeta "Por qué" las reglas de la hora elegida (por
+// defecto, el pico) y resalta esa columna en la línea de tiempo.
+function mostrarDetalleHora(idx){
+  if (!ultimoNoche) return;
+  const {filas, pico}=ultimoNoche;
+  const elegido=filas[idx];
+  if (!elegido) return;
+  const esPico = elegido===pico;
+  document.getElementById("n-reglas-titulo").textContent = esPico
+    ? "Por qué en el momento de mayor riesgo"
+    : `Por qué a las ${String(elegido.h.hora).padStart(2,"0")}:00`;
+  listaReglas(document.getElementById("n-reglas"), elegido.res.disparadas);
+  document.getElementById("btn-volver-pico").classList.toggle("oculto", esPico);
+  document.querySelectorAll("#timeline .col").forEach(c=>
+    c.classList.toggle("activa", +c.dataset.idx===idx));
+}
+document.getElementById("timeline").addEventListener("click",(e)=>{
+  const col=e.target.closest(".col");
+  if (!col) return;
+  mostrarDetalleHora(+col.dataset.idx);
+});
+document.getElementById("btn-volver-pico").addEventListener("click",()=>{
+  if (!ultimoNoche) return;
+  mostrarDetalleHora(ultimoNoche.filas.indexOf(ultimoNoche.pico));
+});
 document.getElementById("btn-ejemplo").addEventListener("click",()=>analizarNoche(NOCHE_EJEMPLO));
 
 // Descarga automática desde datos_smn.json (mismo dominio, sin CORS).
