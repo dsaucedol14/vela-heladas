@@ -1,0 +1,12 @@
+{
+  "name": "vela-heladas",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sistema experto de alerta de heladas (PWA) — Sierra Norte de Puebla",
+  "scripts": {
+    "test": "node --test tests/"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

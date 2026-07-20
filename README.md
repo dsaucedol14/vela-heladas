@@ -7,11 +7,15 @@ sin conexión.
 
 ## Qué incluye
 
-- **index.html** — la app completa (lógica + interfaz)
+- **index.html** — la app completa (interfaz + arranque)
+- **logic.js** — el sistema experto (núcleo puro, sin DOM); lo usan tanto
+  `index.html` como las pruebas unitarias
 - **manifest.webmanifest** — para instalarla en la pantalla de inicio
 - **sw.js** — service worker (cacheo offline cuando está alojada)
 - **icon-192.png / icon-512.png** — íconos de la app
 - **icono.svg** — fuente vectorial del ícono
+- **tests/** — banco de pruebas unitarias de `logic.js` (`npm test`, usa el
+  test runner nativo de Node, sin dependencias)
 
 ## Dos formas de usarla
 
