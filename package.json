@@ -4,7 +4,7 @@
   "private": true,
   "description": "Sistema experto de alerta de heladas (PWA) — Sierra Norte de Puebla",
   "scripts": {
-    "test": "node --test tests/"
+    "test": "node --test tests/*.test.js"
   },
   "engines": {
     "node": ">=18"
