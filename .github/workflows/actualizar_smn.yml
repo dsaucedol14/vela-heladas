@@ -1,0 +1,41 @@
+name: Actualizar datos del SMN
+
+on:
+  schedule:
+    # El SMN actualiza su pronostico por hora cada ~1h15m.
+    - cron: "15 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: actualizar-smn
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Descargar pronostico del SMN
+        run: python3 scripts/actualizar_smn.py
+
+      - name: Commitear si hay cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet -- datos_smn.json; then
+            git add datos_smn.json
+            git commit -m "Actualiza datos_smn.json ($(date -u +'%Y-%m-%d %H:%M UTC'))"
+            git push
+          else
+            echo "Sin cambios en datos_smn.json"
+          fi

@@ -133,6 +133,7 @@
   <div class="tabs" role="tablist">
     <button role="tab" aria-selected="true" id="tab-ahora">Ahora</button>
     <button role="tab" aria-selected="false" id="tab-noche">La noche</button>
+    <button role="tab" aria-selected="false" id="tab-acerca">Acerca de</button>
   </div>
 
   <!-- ===================== VISTA: AHORA (manual) ===================== -->
@@ -154,6 +155,7 @@
     </div>
 
     <div class="accion" id="m-accion"><b>Recomendación</b><span id="m-accion-txt">—</span></div>
+    <button class="btn fantasma" id="btn-reporte-ahora">Compartir reporte</button>
 
     <div class="card">
       <h3>Condiciones actuales</h3>
@@ -226,6 +228,7 @@
         </div>
       </div>
       <div class="accion" id="n-accion"><b>Dictamen de la noche · pico a las <span id="n-hora">—</span>:00</b><span id="n-accion-txt">—</span></div>
+      <button class="btn fantasma" id="btn-reporte-noche">Compartir reporte</button>
 
       <div class="conv">
         <h3>Riesgo hora por hora</h3>
@@ -236,6 +239,75 @@
         <h3>Por qué en el momento de mayor riesgo</h3>
         <ul class="reglas" id="n-reglas"></ul>
       </div>
+    </div>
+  </section>
+
+  <!-- ===================== VISTA: ACERCA DE ===================== -->
+  <section id="vista-acerca" class="oculto">
+    <div class="card">
+      <h3>Qué es Vela</h3>
+      <p class="hint" style="margin-top:0">
+        Vela es un sistema experto de alerta temprana de heladas radiativas
+        para huertos de manzana en la Sierra Norte de Puebla. A partir de
+        temperatura, humedad, viento y nubosidad estima qué tan probable es
+        que amanezca con helada, y qué tan fuerte.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Cómo funciona</h3>
+      <p class="hint" style="margin-top:0">
+        Evalúa 20 reglas con factores de certeza al estilo MYCIN: cada regla
+        aporta evidencia a favor (CF positivo) o en contra (CF negativo) de
+        que habrá helada, y los CF se combinan con las fórmulas clásicas de
+        MYCIN hasta un solo número entre −1 y +1. El punto de rocío se deriva
+        con la fórmula de Magnus a partir de temperatura y humedad. Las
+        reglas cubren el piso térmico (punto de rocío), condiciones
+        habilitadoras (cielo despejado, viento en calma, aire seco), el
+        momento del día, la ubicación del huerto, la temporada del año y,
+        cuando el dato está disponible, probabilidad de lluvia, ráfagas y
+        dirección del viento.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>De dónde vienen los datos</h3>
+      <p class="hint" style="margin-top:0">
+        Tres formas, de más a menos automática:
+      </p>
+      <p class="hint">
+        <b style="color:var(--escarcha)">Pronóstico del SMN (automático)</b> —
+        un robot en GitHub Actions descarga el pronóstico por hora de
+        Huauchinango y lo publica cada hora; el botón "Cargar pronóstico del
+        SMN" en la pestaña <i>La noche</i> lo trae desde el mismo sitio (sin
+        problemas de CORS).
+      </p>
+      <p class="hint">
+        <b style="color:var(--escarcha)">Pegar JSON del SMN</b> — si copiaste
+        a mano el pronóstico del sitio del SMN, lo pegas ahí y se analiza
+        igual.
+      </p>
+      <p class="hint">
+        <b style="color:var(--escarcha)">Entrada manual</b> — en la pestaña
+        <i>Ahora</i>, mueves los deslizadores con tus propias lecturas.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Relación con la versión de escritorio</h3>
+      <p class="hint" style="margin-top:0">
+        Es el mismo sistema experto: las 20 reglas y las fórmulas de CF y de
+        Magnus son idénticas a las de la versión de escritorio en Python
+        (dos motores de inferencia intercambiables —uno propio y uno sobre
+        CLIPS— que sirven de validación cruzada entre sí). Vela reimplementa
+        esa misma lógica en JavaScript para funcionar 100% en el navegador,
+        sin backend y sin conexión.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Licencia</h3>
+      <p class="hint" style="margin-top:0">MIT © Daniel Saucedo León</p>
     </div>
   </section>
 
@@ -401,6 +473,7 @@ function listaReglas(ul, disparadas){
    VISTA: AHORA (evaluación en vivo)
    ============================================================ */
 const ctrl=["temp","hr","viento","nubosidad","hora"];
+let ultimoAhora=null, ultimoNoche=null;
 function evaluarAhora(){
   const h={
     temp:+$("temp").value, hr:+$("hr").value, viento:+$("viento").value,
@@ -419,6 +492,7 @@ function evaluarAhora(){
   $("m-accion-txt").textContent=res.nivel.accion;
   $("m-accion").style.borderLeftColor=res.nivel.color;
   listaReglas($("m-reglas"), res.disparadas);
+  ultimoAhora={h,res};
 }
 ctrl.forEach(id=>$(id).addEventListener("input",evaluarAhora));
 $("parte_baja").addEventListener("change",evaluarAhora);
@@ -453,6 +527,7 @@ function analizarNoche(registros){
   }).join("");
 
   document.getElementById("resultado-noche").classList.remove("oculto");
+  ultimoNoche={filas,pico};
 }
 document.getElementById("btn-ejemplo").addEventListener("click",()=>analizarNoche(NOCHE_EJEMPLO));
 
@@ -502,17 +577,136 @@ document.getElementById("parte_baja_n").addEventListener("change",()=>{
 });
 
 /* ============================================================
+   REPORTE — exportar / compartir el dictamen como HTML autocontenido
+   ============================================================ */
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function filasReglasReporte(disparadas){
+  const orden=[...disparadas].sort((a,b)=>b.cf-a.cf);
+  return orden.map(r=>`
+    <li><span class="peso ${r.cf>0?'pos':'neg'}">${r.cf>0?'+':''}${r.cf.toFixed(2)}</span>
+        <b>${r.id}</b> — ${escapeHtml(r.desc)}</li>`).join("")
+    || "<li>Ninguna regla se disparó.</li>";
+}
+function plantillaReporte({titulo, generado, nivel, cf, colorHex, accionTxt, chips, filasTabla, reglasHtml}){
+  return `<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${escapeHtml(titulo)}</title>
+<style>
+  :root{--noche-0:#0c1326;--superficie:#1b2743;--superficie-2:#223154;--linea:#2b3c63;--escarcha:#eaf2fb;--tenue:#8ea3c4;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--noche-0);color:var(--escarcha);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:24px}
+  .contenedor{max-width:640px;margin:0 auto}
+  h1{font-size:19px;margin:0 0 4px}
+  .sub{color:var(--tenue);font-size:12.5px;margin:0 0 20px}
+  .veredicto{background:var(--superficie);border-radius:14px;padding:20px;margin-bottom:16px;border-left:5px solid ${colorHex}}
+  .veredicto .nivel{font-size:26px;font-weight:800;color:${colorHex}}
+  .veredicto .cf{font-size:13px;color:var(--tenue);margin:4px 0 10px}
+  .veredicto .accion{font-size:14px;line-height:1.5}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .chip{background:var(--superficie-2);border-radius:20px;padding:5px 12px;font-size:12px}
+  .card{background:var(--superficie);border-radius:14px;padding:18px;margin-bottom:16px}
+  .card h2{margin:0 0 12px;font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--tenue)}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th,td{padding:6px 8px;text-align:center;border-bottom:1px solid var(--linea)}
+  th{color:var(--tenue);font-weight:600;font-size:10.5px;text-transform:uppercase}
+  ul{list-style:none;margin:0;padding:0}
+  li{display:flex;gap:8px;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--linea);font-size:13px}
+  li:last-child{border-bottom:0}
+  .peso{font-family:ui-monospace,monospace;font-weight:700;min-width:44px}
+  .pos{color:#37c07a}.neg{color:#e8503f}
+  footer{color:var(--tenue);font-size:11px;text-align:center;margin-top:20px;line-height:1.6}
+</style></head><body><div class="contenedor">
+  <h1>Vela · Alerta de heladas</h1>
+  <p class="sub">Manzana, Sierra Norte de Puebla · generado ${escapeHtml(generado)}</p>
+  <div class="veredicto">
+    <div class="nivel">${escapeHtml(nivel)}</div>
+    <div class="cf">CF ${cf>=0?'+':''}${cf.toFixed(2)}</div>
+    <div class="accion">${escapeHtml(accionTxt)}</div>
+    <div class="chips">${chips.map(c=>`<span class="chip">${escapeHtml(c)}</span>`).join("")}</div>
+  </div>
+  ${filasTabla ? `<div class="card"><h2>Detalle horario</h2><table><thead><tr>
+    <th>Hora</th><th>T °C</th><th>Td °C</th><th>Nubes</th><th>Viento</th><th>CF</th><th>Nivel</th>
+    </tr></thead><tbody>${filasTabla}</tbody></table></div>` : ""}
+  <div class="card"><h2>Por qué</h2><ul>${reglasHtml}</ul></div>
+  <footer>Factores de certeza estilo MYCIN · punto de rocío por Magnus<br>
+    Generado por Vela, app móvil offline-first.</footer>
+</div></body></html>`;
+}
+async function exportarHtml(html, nombreArchivo){
+  const blob=new Blob([html], {type:"text/html"});
+  if (navigator.canShare && navigator.share){
+    try{
+      const file=new File([blob], nombreArchivo, {type:"text/html"});
+      if (navigator.canShare({files:[file]})){
+        await navigator.share({files:[file], title:"Reporte Vela"});
+        return;
+      }
+    }catch(e){ /* el usuario canceló, o el navegador no lo soporta: cae a descarga */ }
+  }
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url; a.download=nombreArchivo;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 4000);
+}
+function reporteAhora(){
+  if (!ultimoAhora) return;
+  const {h,res}=ultimoAhora;
+  const chips=[
+    `Temp ${h.temp}°C`, `HR ${h.hr}%`, `Viento ${h.viento} km/h`,
+    `Nubosidad ${h.nubosidad}%`, `Hora ${String(h.hora).padStart(2,"0")}:00`,
+    `Td ${res.td.toFixed(1)}°C`,
+    h.parte_baja ? "Huerto en parte baja" : "Huerto en zona normal",
+  ];
+  const html=plantillaReporte({
+    titulo:"Vela · Lectura actual", generado:new Date().toLocaleString("es-MX"),
+    nivel:res.nivel.nivel, cf:res.cf, colorHex:res.nivel.hex,
+    accionTxt:res.nivel.accion, chips, filasTabla:null,
+    reglasHtml:filasReglasReporte(res.disparadas),
+  });
+  exportarHtml(html, `vela-lectura-${Date.now()}.html`);
+}
+function reporteNoche(){
+  if (!ultimoNoche) return;
+  const {filas,pico}=ultimoNoche;
+  const filasTabla=filas.map(f=>{
+    const h=f.h, r=f.res;
+    return `<tr><td>${String(h.hora).padStart(2,"0")}:00</td><td>${h.temp.toFixed(1)}</td>
+      <td>${r.td.toFixed(1)}</td><td>${h.nubosidad.toFixed(0)}%</td><td>${h.viento.toFixed(0)}</td>
+      <td>${r.cf>=0?"+":""}${r.cf.toFixed(2)}</td><td style="color:${r.nivel.hex}">${r.nivel.nivel}</td></tr>`;
+  }).join("");
+  const chips=[
+    `Pico a las ${String(pico.h.hora).padStart(2,"0")}:00`, `Td ${pico.res.td.toFixed(1)}°C`,
+    pico.h.parte_baja ? "Huerto en parte baja" : "Huerto en zona normal",
+  ];
+  const html=plantillaReporte({
+    titulo:"Vela · Dictamen de la noche", generado:new Date().toLocaleString("es-MX"),
+    nivel:pico.res.nivel.nivel, cf:pico.res.cf, colorHex:pico.res.nivel.hex,
+    accionTxt:pico.res.nivel.accion, chips, filasTabla,
+    reglasHtml:filasReglasReporte(pico.res.disparadas),
+  });
+  exportarHtml(html, `vela-noche-${Date.now()}.html`);
+}
+document.getElementById("btn-reporte-ahora").addEventListener("click", reporteAhora);
+document.getElementById("btn-reporte-noche").addEventListener("click", reporteNoche);
+
+/* ============================================================
    Pestañas
    ============================================================ */
 function verTab(cual){
-  const ahora=cual==="ahora";
-  document.getElementById("tab-ahora").setAttribute("aria-selected",ahora);
-  document.getElementById("tab-noche").setAttribute("aria-selected",!ahora);
-  document.getElementById("vista-ahora").classList.toggle("oculto",!ahora);
-  document.getElementById("vista-noche").classList.toggle("oculto",ahora);
+  document.getElementById("tab-ahora").setAttribute("aria-selected", cual==="ahora");
+  document.getElementById("tab-noche").setAttribute("aria-selected", cual==="noche");
+  document.getElementById("tab-acerca").setAttribute("aria-selected", cual==="acerca");
+  document.getElementById("vista-ahora").classList.toggle("oculto", cual!=="ahora");
+  document.getElementById("vista-noche").classList.toggle("oculto", cual!=="noche");
+  document.getElementById("vista-acerca").classList.toggle("oculto", cual!=="acerca");
 }
 document.getElementById("tab-ahora").addEventListener("click",()=>verTab("ahora"));
 document.getElementById("tab-noche").addEventListener("click",()=>verTab("noche"));
+document.getElementById("tab-acerca").addEventListener("click",()=>verTab("acerca"));
 
 /* Arranque */
 evaluarAhora();
