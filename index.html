@@ -155,6 +155,7 @@
     </div>
 
     <div class="accion" id="m-accion"><b>Recomendación</b><span id="m-accion-txt">—</span></div>
+    <div id="m-fuente" class="hint" style="margin:8px 2px 0;">Entrada manual</div>
     <button class="btn fantasma" id="btn-reporte-ahora">Compartir reporte</button>
 
     <div class="card">
@@ -559,6 +560,47 @@ async function cargarDelSMN(){
 }
 document.getElementById("btn-smn").addEventListener("click", cargarDelSMN);
 
+// Precarga la pestaña "Ahora" con la lectura del SMN más cercana a la hora
+// actual (si hay datos disponibles), en vez de quedarse con los valores
+// manuales fijos. El usuario sigue pudiendo mover los deslizadores encima.
+function fechaDesdeHloc(hloc){
+  const s = String(hloc);
+  if (!s.includes("T")) return null;
+  const [f, hh] = s.split("T");
+  if (f.length < 8) return null;
+  const y=+f.slice(0,4), m=+f.slice(4,6), d=+f.slice(6,8), hora=parseInt(hh.slice(0,2))||0;
+  return new Date(y, m-1, d, hora);
+}
+async function precargarAhoraConSMN(){
+  try{
+    const resp = await fetch("datos_smn.json", { cache: "no-store" });
+    if (!resp.ok) return;
+    const j = await resp.json();
+    const datos = Array.isArray(j) ? j : (j.datos || []);
+    if (!datos.length) return;
+
+    const ahora = Date.now();
+    let mejor=null, mejorDif=Infinity;
+    for (const reg of datos){
+      const f = fechaDesdeHloc(reg.hloc);
+      if (!f) continue;
+      const dif = Math.abs(f.getTime() - ahora);
+      if (dif < mejorDif){ mejorDif = dif; mejor = {reg, f}; }
+    }
+    if (!mejor) return;
+
+    const h = normalizar(mejor.reg, $("parte_baja").checked);
+    $("temp").value = Math.round(h.temp*2)/2;
+    $("hr").value = Math.round(h.hr);
+    $("viento").value = Math.round(h.viento);
+    $("nubosidad").value = Math.round(h.nubosidad/5)*5;
+    $("hora").value = mejor.f.getHours();
+    evaluarAhora();
+    $("m-fuente").textContent =
+      `Datos del SMN · ${mejor.f.toLocaleString("es-MX",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}`;
+  }catch(e){ /* sin datos del SMN disponibles: se queda la entrada manual */ }
+}
+
 document.getElementById("btn-pegar").addEventListener("click",()=>{
   document.getElementById("zona-pegar").classList.toggle("oculto");
 });
@@ -708,8 +750,14 @@ document.getElementById("tab-ahora").addEventListener("click",()=>verTab("ahora"
 document.getElementById("tab-noche").addEventListener("click",()=>verTab("noche"));
 document.getElementById("tab-acerca").addEventListener("click",()=>verTab("acerca"));
 
+// Si el usuario mueve un deslizador después de la precarga, deja claro
+// que la lectura ya es edición manual, no la del SMN.
+ctrl.forEach(id=>$(id).addEventListener("input",()=>{ $("m-fuente").textContent="Entrada manual (editado)"; }));
+$("parte_baja").addEventListener("change",()=>{ $("m-fuente").textContent="Entrada manual (editado)"; });
+
 /* Arranque */
 evaluarAhora();
+precargarAhoraConSMN();
 
 /* Service worker (solo si está servido por http/https, no en archivo local) */
 if("serviceWorker" in navigator && location.protocol.startsWith("http")){
