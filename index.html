@@ -36,7 +36,7 @@
   .tabs{display:flex; background:var(--superficie); border-radius:14px;
     padding:4px; gap:4px; margin:6px 0 20px;}
   .tabs button{flex:1; border:0; background:transparent; color:var(--tenue);
-    font-size:14px; font-weight:600; padding:10px; border-radius:10px;
+    font-size:12.5px; font-weight:600; padding:10px 4px; border-radius:10px;
     cursor:pointer; transition:.18s;}
   .tabs button[aria-selected="true"]{background:var(--superficie-2);
     color:var(--escarcha); box-shadow:0 1px 3px rgba(0,0,0,.3);}
@@ -144,6 +144,7 @@
   <div class="tabs" role="tablist">
     <button role="tab" aria-selected="true" id="tab-ahora">Ahora</button>
     <button role="tab" aria-selected="false" id="tab-noche">La noche</button>
+    <button role="tab" aria-selected="false" id="tab-protocolo">Protocolo</button>
     <button role="tab" aria-selected="false" id="tab-acerca">Acerca de</button>
   </div>
 
@@ -254,6 +255,15 @@
         <p class="hint">Toca una barra de la línea de tiempo para ver por qué esa hora tuvo ese nivel.</p>
       </div>
     </div>
+  </section>
+
+  <!-- ===================== VISTA: PROTOCOLO ===================== -->
+  <section id="vista-protocolo" class="oculto">
+    <div class="card" style="padding:0; overflow:hidden;">
+      <iframe id="frame-protocolo" title="Protocolo de helada" loading="lazy"
+        style="display:block; width:100%; height:78vh; border:0; background:var(--superficie);"></iframe>
+    </div>
+    <p class="hint" style="margin:10px 2px 0;">Qué hacer en el huerto cuando la alerta llega con horas de anticipación: umbrales por estado fenológico, riego de suelo, aspersión, calentadores y mantas térmicas.</p>
   </section>
 
   <!-- ===================== VISTA: ACERCA DE ===================== -->
@@ -684,13 +694,21 @@ document.getElementById("btn-reporte-noche").addEventListener("click", reporteNo
 function verTab(cual){
   document.getElementById("tab-ahora").setAttribute("aria-selected", cual==="ahora");
   document.getElementById("tab-noche").setAttribute("aria-selected", cual==="noche");
+  document.getElementById("tab-protocolo").setAttribute("aria-selected", cual==="protocolo");
   document.getElementById("tab-acerca").setAttribute("aria-selected", cual==="acerca");
   document.getElementById("vista-ahora").classList.toggle("oculto", cual!=="ahora");
   document.getElementById("vista-noche").classList.toggle("oculto", cual!=="noche");
+  document.getElementById("vista-protocolo").classList.toggle("oculto", cual!=="protocolo");
   document.getElementById("vista-acerca").classList.toggle("oculto", cual!=="acerca");
+  if (cual==="protocolo"){
+    // Carga diferida: solo trae el iframe la primera vez que se abre la pestaña.
+    const frame=document.getElementById("frame-protocolo");
+    if (!frame.src) frame.src="protocolo-helada.html";
+  }
 }
 document.getElementById("tab-ahora").addEventListener("click",()=>verTab("ahora"));
 document.getElementById("tab-noche").addEventListener("click",()=>verTab("noche"));
+document.getElementById("tab-protocolo").addEventListener("click",()=>verTab("protocolo"));
 document.getElementById("tab-acerca").addEventListener("click",()=>verTab("acerca"));
 
 // Si el usuario mueve un deslizador después de la precarga, deja claro

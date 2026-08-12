@@ -1,11 +1,12 @@
 /* Service worker de Vela — cachea la app para uso sin conexión.
    Solo tiene efecto cuando la app se sirve por http/https (p. ej. GitHub Pages),
    no al abrir el archivo local. */
-const CACHE = "vela-v10";
+const CACHE = "vela-v11";
 const ASSETS = [
   ".",
   "index.html",
   "logic.js",
+  "protocolo-helada.html",
   "manifest.webmanifest",
   "icon-192.png",
   "icon-512.png"
