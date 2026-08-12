@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B1220">
+<title>VELA · Protocolo de helada</title>
+<style>
+  :root{
+    --noche:#0B1220;
+    --panel:#131C2E;
+    --panel-alto:#1B273F;
+    --linea:#26344F;
+    --texto:#E8EDF5;
+    --tenue:#8A9AB5;
+    --seguro:#4FB477;
+    --alerta:#E8A33D;
+    --critico:#E4572E;
+    --hielo:#7FB3D5;
+    --radio:14px;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--noche);color:var(--texto);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    font-size:16px;line-height:1.45;
+    padding:16px 16px 48px;max-width:560px;margin:0 auto;
+    font-variant-numeric:tabular-nums;
+  }
+  .eyebrow{
+    font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--alerta);font-weight:700;margin:0 0 4px;
+  }
+  h1{font-size:24px;line-height:1.15;margin:0 0 4px;font-weight:800;letter-spacing:-.01em}
+  .sub{color:var(--tenue);font-size:13.5px;margin:0 0 20px}
+
+  fieldset{border:0;margin:0 0 14px;padding:0}
+  legend{
+    font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--tenue);font-weight:700;padding:0 0 8px;
+  }
+  label{display:block;font-size:13px;color:var(--tenue);margin:0 0 6px}
+  .campo{margin:0 0 14px}
+  .fila{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  select,input[type=number]{
+    width:100%;background:var(--panel);color:var(--texto);
+    border:1px solid var(--linea);border-radius:10px;
+    padding:13px 12px;font-size:17px;font-family:inherit;
+    font-variant-numeric:tabular-nums;appearance:none;
+  }
+  select:focus,input:focus,button:focus-visible{
+    outline:2px solid var(--hielo);outline-offset:2px;
+  }
+  .segmentado{display:flex;gap:8px}
+  .segmentado button{
+    flex:1;background:var(--panel);color:var(--tenue);
+    border:1px solid var(--linea);border-radius:10px;
+    padding:13px 6px;font-size:14px;font-family:inherit;font-weight:600;
+    cursor:pointer;
+  }
+  .segmentado button[aria-pressed=true]{
+    background:var(--panel-alto);color:var(--texto);border-color:var(--hielo);
+  }
+  .primario{
+    width:100%;padding:16px;border:0;border-radius:12px;
+    background:var(--alerta);color:#10192B;font-size:17px;font-weight:800;
+    font-family:inherit;cursor:pointer;margin:6px 0 24px;letter-spacing:.01em;
+  }
+
+  /* ── Firma: el medidor de margen ── */
+  .medidor{
+    background:var(--panel);border:1px solid var(--linea);
+    border-radius:var(--radio);padding:18px 16px;margin:0 0 16px;
+  }
+  .margen{
+    font-size:56px;font-weight:800;line-height:1;letter-spacing:-.03em;margin:2px 0 2px;
+  }
+  .margen small{font-size:22px;font-weight:700;margin-left:2px}
+  .estado{font-size:14px;font-weight:700;margin:0 0 14px}
+  .pista{
+    position:relative;height:10px;border-radius:6px;margin:22px 0 30px;
+    background:linear-gradient(90deg,var(--critico) 0%,var(--alerta) 46%,var(--seguro) 100%);
+  }
+  .marca{position:absolute;top:-7px;width:2px;height:24px;background:var(--texto);opacity:.55}
+  .marca span{
+    position:absolute;top:26px;left:50%;transform:translateX(-50%);
+    font-size:10px;color:var(--tenue);white-space:nowrap;letter-spacing:.04em;
+  }
+  .aguja{
+    position:absolute;top:-11px;width:4px;height:32px;border-radius:2px;
+    background:var(--texto);box-shadow:0 0 0 3px var(--panel);
+  }
+  .aguja span{
+    position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+    font-size:11px;font-weight:700;white-space:nowrap;
+  }
+  .datos{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+  .dato{background:var(--panel-alto);border-radius:10px;padding:10px 12px}
+  .dato dt{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tenue);margin:0}
+  .dato dd{margin:3px 0 0;font-size:19px;font-weight:700}
+
+  /* ── Protocolo ── */
+  .bloque{
+    background:var(--panel);border:1px solid var(--linea);
+    border-radius:var(--radio);padding:16px;margin:0 0 12px;
+  }
+  .bloque h2{
+    font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--alerta);margin:0 0 12px;font-weight:800;
+  }
+  .bloque.frio h2{color:var(--hielo)}
+  ol.acciones,ul.acciones{margin:0;padding:0;list-style:none}
+  .acciones li{
+    display:flex;gap:11px;padding:9px 0;border-top:1px solid var(--linea);font-size:14.5px;
+  }
+  .acciones li:first-child{border-top:0;padding-top:0}
+  .bala{
+    flex:0 0 auto;width:20px;height:20px;border-radius:50%;margin-top:2px;
+    background:var(--panel-alto);color:var(--tenue);
+    font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;
+  }
+  .aviso{
+    border-left:0;background:rgba(228,87,46,.12);
+    border:1px solid rgba(228,87,46,.4);border-radius:10px;
+    padding:12px 14px;margin:12px 0 0;font-size:14px;
+  }
+  .aviso b{color:var(--critico)}
+  .nota{color:var(--tenue);font-size:12.5px;margin:12px 0 0}
+  details{margin:16px 0 0;border-top:1px solid var(--linea);padding-top:14px}
+  summary{cursor:pointer;font-size:13.5px;font-weight:700;color:var(--hielo);list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"▸ ";}
+  details[open] summary::before{content:"▾ ";}
+  table{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px}
+  th,td{text-align:left;padding:7px 4px;border-bottom:1px solid var(--linea)}
+  th{color:var(--tenue);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+  td:nth-child(2),td:nth-child(3){text-align:right;font-weight:600}
+  .pie{color:var(--tenue);font-size:11.5px;margin-top:22px;line-height:1.55}
+  [hidden]{display:none!important}
+  @media (prefers-reduced-motion:no-preference){
+    #salida{animation:entra .25s ease-out}
+    @keyframes entra{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  }
+</style>
+</head>
+<body>
+
+<p class="eyebrow">VELA · Módulo de respuesta</p>
+<h1>Protocolo de helada</h1>
+<p class="sub">Qué hacer cuando la alerta llega con horas de anticipación. Captura lo que midas en el huerto, no lo del pronóstico regional.</p>
+
+<fieldset>
+  <legend>Estado del huerto</legend>
+
+  <div class="campo">
+    <label for="estado">Estado fenológico</label>
+    <select id="estado">
+      <option value="0">Punta plateada</option>
+      <option value="1">Punta verde</option>
+      <option value="2">Media pulgada verde</option>
+      <option value="3">Racimo compacto</option>
+      <option value="4" selected>Rosa inicial</option>
+      <option value="5">Rosa plena</option>
+      <option value="6">Inicio de floración</option>
+      <option value="7">Plena floración</option>
+      <option value="8">Cuajado (post-floración)</option>
+    </select>
+  </div>
+
+  <div class="campo">
+    <label for="variedad">Variedad predominante</label>
+    <select id="variedad">
+      <option value="0">Red Delicious y similares</option>
+      <option value="0.5">Golden Delicious / Winesap</option>
+      <option value="1.1">Rome Beauty</option>
+      <option value="0" data-local="1">Criolla o panochera (sin dato publicado)</option>
+    </select>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend>Medición a altura de brote</legend>
+  <div class="fila">
+    <div class="campo">
+      <label for="temp">Temperatura (°C)</label>
+      <input id="temp" type="number" inputmode="decimal" step="0.1" value="3.0">
+    </div>
+    <div class="campo">
+      <label for="hr">Humedad relativa (%)</label>
+      <input id="hr" type="number" inputmode="numeric" step="1" min="5" max="100" value="72">
+    </div>
+  </div>
+  <div class="fila">
+    <div class="campo">
+      <label for="viento">Viento (km/h)</label>
+      <input id="viento" type="number" inputmode="decimal" step="0.5" min="0" value="1">
+    </div>
+    <div class="campo">
+      <label for="horas">Horas hasta el amanecer</label>
+      <input id="horas" type="number" inputmode="numeric" step="1" min="0" max="18" value="8">
+    </div>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend>Cielo</legend>
+  <div class="segmentado" id="cielo" role="group" aria-label="Estado del cielo">
+    <button type="button" data-v="despejado" aria-pressed="true">Despejado</button>
+    <button type="button" data-v="parcial" aria-pressed="false">Parcial</button>
+    <button type="button" data-v="cubierto" aria-pressed="false">Cubierto</button>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend>Recursos disponibles esta noche</legend>
+  <div class="segmentado" id="recursos" role="group" aria-label="Recursos disponibles" style="flex-wrap:wrap">
+    <button type="button" data-v="aspersion" aria-pressed="false" style="flex:1 1 46%">Aspersión sobre copa</button>
+    <button type="button" data-v="micro" aria-pressed="false" style="flex:1 1 46%">Microaspersión</button>
+    <button type="button" data-v="calor" aria-pressed="false" style="flex:1 1 46%">Calentadores</button>
+    <button type="button" data-v="manta" aria-pressed="false" style="flex:1 1 46%">Mantas térmicas</button>
+  </div>
+</fieldset>
+
+<button class="primario" id="evaluar">Calcular protocolo</button>
+
+<div id="salida" hidden></div>
+
+<details>
+  <summary>Umbrales críticos por estado fenológico</summary>
+  <table>
+    <thead><tr><th>Estado</th><th>10 % de daño</th><th>90 % de daño</th></tr></thead>
+    <tbody id="tabla"></tbody>
+  </table>
+  <p class="nota">Valores para Red Delicious, 30 minutos de exposición (WSU, Prosser). Golden y Winesap resisten ~0.5 °C más y Rome Beauty ~1.1 °C más antes de la caída de pétalos; después del cuajado todas son igual de sensibles. De las criollas locales —panochera, rayada, carreta, tonoxócotl— no hay umbrales publicados: el módulo usa los de Red Delicious como referencia conservadora.</p>
+</details>
+
+<p class="pie">
+  Bulbo húmedo estimado con la aproximación de Stull (2011), válida entre 5 % y 99 % de humedad relativa.<br>
+  Los umbrales son guía para decidir cuándo iniciar la protección, no un pronóstico de daño: la pérdida real depende también de cuánto dure el frío.
+</p>
+
+<script>
+(function(){
+  "use strict";
+
+  var ESTADOS = [
+    {n:"Punta plateada",      k10:-9.4, k90:-16.7},
+    {n:"Punta verde",         k10:-7.8, k90:-12.2},
+    {n:"Media pulgada verde", k10:-5.0, k90:-9.4},
+    {n:"Racimo compacto",     k10:-2.8, k90:-6.1},
+    {n:"Rosa inicial",        k10:-2.2, k90:-4.4},
+    {n:"Rosa plena",          k10:-2.2, k90:-3.9},
+    {n:"Inicio de floración", k10:-2.2, k90:-3.9},
+    {n:"Plena floración",     k10:-2.2, k90:-3.9},
+    {n:"Cuajado",             k10:-2.2, k90:-3.9}
+  ];
+
+  var el = function(id){ return document.getElementById(id); };
+  var cielo = "despejado";
+  var recursos = {};
+
+  // Tabla de referencia
+  (function(){
+    var filas = ESTADOS.map(function(e){
+      return "<tr><td>"+e.n+"</td><td>"+e.k10.toFixed(1)+" °C</td><td>"+e.k90.toFixed(1)+" °C</td></tr>";
+    }).join("");
+    el("tabla").innerHTML = filas;
+  })();
+
+  // Grupos de botones
+  function grupo(id, unico, alCambiar){
+    var cont = el(id);
+    cont.addEventListener("click", function(ev){
+      var b = ev.target.closest("button");
+      if(!b) return;
+      if(unico){
+        Array.prototype.forEach.call(cont.querySelectorAll("button"), function(o){
+          o.setAttribute("aria-pressed", String(o === b));
+        });
+      } else {
+        b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") === "true" ? "false" : "true");
+      }
+      alCambiar();
+    });
+  }
+  grupo("cielo", true, function(){
+    cielo = el("cielo").querySelector('[aria-pressed="true"]').dataset.v;
+  });
+  grupo("recursos", false, function(){
+    recursos = {};
+    Array.prototype.forEach.call(el("recursos").querySelectorAll('[aria-pressed="true"]'), function(b){
+      recursos[b.dataset.v] = true;
+    });
+  });
+
+  // Bulbo húmedo — Stull (2011)
+  function bulboHumedo(T, HR){
+    HR = Math.min(99, Math.max(5, HR));
+    return T*Math.atan(0.151977*Math.pow(HR+8.313659, 0.5))
+         + Math.atan(T+HR) - Math.atan(HR-1.676331)
+         + 0.00391838*Math.pow(HR,1.5)*Math.atan(0.023101*HR)
+         - 4.686035;
+  }
+
+  function num(n){ return (n>=0?"+":"") + n.toFixed(1); }
+
+  function medidor(temp, k10, k90, tipo){
+    // Escala: de k90-1 a k10+4
+    var min = k90 - 1, max = k10 + 4, span = max - min;
+    var pos = function(v){ return Math.max(0, Math.min(100, (v-min)/span*100)); };
+    var margen = temp - k10;
+    var color = margen > 2 ? "var(--seguro)" : (margen > 0 ? "var(--alerta)" : "var(--critico)");
+    var estado = margen > 2 ? "Fuera del umbral por ahora"
+               : margen > 0 ? "Al filo del umbral de 10 % de daño"
+               : (temp > k90 ? "Por debajo del umbral de 10 % de daño" : "Por debajo del umbral de 90 % de daño");
+
+    return '<div class="medidor">'
+      + '<p class="eyebrow" style="color:var(--tenue)">Margen sobre el umbral de daño</p>'
+      + '<div class="margen" style="color:'+color+'">'+num(margen)+'<small>°C</small></div>'
+      + '<p class="estado" style="color:'+color+'">'+estado+' · helada '+tipo+'</p>'
+      + '<div class="pista">'
+      +   '<div class="marca" style="left:'+pos(k90)+'%"><span>90 % daño</span></div>'
+      +   '<div class="marca" style="left:'+pos(k10)+'%"><span>10 % daño</span></div>'
+      +   '<div class="aguja" style="left:'+pos(temp)+'%;background:'+color+'"><span style="color:'+color+'">'+temp.toFixed(1)+' °C</span></div>'
+      + '</div>'
+      + '<dl class="datos" style="margin:0">'
+      +   '<div class="dato"><dt>Umbral 10 %</dt><dd>'+k10.toFixed(1)+' °C</dd></div>'
+      +   '<div class="dato"><dt>Umbral 90 %</dt><dd>'+k90.toFixed(1)+' °C</dd></div>'
+      + '</dl>'
+      + '</div>';
+  }
+
+  function lista(titulo, items, clase){
+    if(!items.length) return "";
+    return '<section class="bloque'+(clase?" "+clase:"")+'"><h2>'+titulo+'</h2><ul class="acciones">'
+      + items.map(function(t,i){ return '<li><span class="bala">'+(i+1)+'</span><span>'+t+'</span></li>'; }).join("")
+      + '</ul></section>';
+  }
+
+  el("evaluar").addEventListener("click", function(){
+    var iEstado = parseInt(el("estado").value, 10);
+    var ajuste  = parseFloat(el("variedad").value) || 0;
+    var esLocal = !!el("variedad").selectedOptions[0].dataset.local;
+    var temp    = parseFloat(el("temp").value);
+    var hr      = parseFloat(el("hr").value);
+    var viento  = parseFloat(el("viento").value);
+    var horas   = parseFloat(el("horas").value);
+
+    if(isNaN(temp) || isNaN(hr) || isNaN(viento)){
+      el("salida").hidden = false;
+      el("salida").innerHTML = '<div class="aviso"><b>Faltan datos.</b> Captura temperatura, humedad relativa y viento para calcular el protocolo.</div>';
+      return;
+    }
+
+    var E = ESTADOS[iEstado];
+    var postCuajado = iEstado >= 8;
+    var aj = postCuajado ? 0 : ajuste;   // después del cuajado no hay diferencia por variedad
+    var k10 = E.k10 - aj, k90 = E.k90 - aj;
+    var tw = bulboHumedo(temp, hr);
+    var margen = temp - k10;
+
+    // Tipo de helada
+    var tipo, advectiva = false;
+    if(viento >= 8){ tipo = "advectiva"; advectiva = true; }
+    else if(cielo === "cubierto" && viento >= 4){ tipo = "advectiva"; advectiva = true; }
+    else if(cielo === "despejado" && viento < 5){ tipo = "radiativa"; }
+    else { tipo = "mixta o incierta"; }
+
+    var html = medidor(temp, k10, k90, tipo);
+
+    // ── Diagnóstico ──
+    var diag = [];
+    diag.push("Bulbo húmedo estimado: <b>"+tw.toFixed(1)+" °C</b>. Es el piso al que puede caer la temperatura si mojas el huerto.");
+    if(advectiva){
+      diag.push("Viento de "+viento.toFixed(1)+" km/h: el aire frío es una masa en movimiento, no una pérdida por radiación. Aspersión y calentadores rinden poco aquí.");
+    } else if(tipo === "radiativa"){
+      diag.push("Cielo despejado y viento casi nulo: el calor escapa por radiación y se forma inversión térmica. Es el escenario donde la protección sí funciona.");
+    } else {
+      diag.push("Condiciones ambiguas. Vuelve a medir en una hora antes de comprometer agua o combustible.");
+    }
+    if(esLocal){
+      diag.push("Variedad criolla sin umbrales publicados: se están aplicando los de Red Delicious. Trátalo como referencia conservadora, no como dato de tu huerto.");
+    }
+    html += lista("Diagnóstico", diag, "frio");
+
+    // ── Ahora, con luz ──
+    var dia = [];
+    if(horas > 3){
+      dia.push("Riega el suelo <b>ahora</b>, no de noche. Suelo húmedo almacena cerca del doble de calor y devuelve 1–2 °C de madrugada.");
+      dia.push("Corta la hierba al ras en las calles. El pasto alto aísla el suelo e impide que absorba calor durante el día.");
+      dia.push("Compacta el suelo recién movido: si rastreaste esta semana, pásale un rodillo. El suelo mullido es aislante.");
+      dia.push("Abre el drenaje de aire frío en la parte baja del huerto: bardas, setos densos o maleza alta represan el aire frío como una alberca.");
+    } else {
+      dia.push("Ya no hay margen para calentar el suelo. Concentra el esfuerzo en las medidas de la noche.");
+      dia.push("Recorre el huerto e identifica los puntos bajos: ahí bajará primero la temperatura y ahí debes colocar el termómetro de referencia.");
+    }
+    html += lista(horas > 3 ? "Ahora, mientras hay luz" : "Ahora, sin margen de preparación", dia);
+
+    // ── De madrugada ──
+    var noche = [];
+    if(advectiva){
+      noche.push("Cubre con manta térmica o agrotextil los árboles jóvenes y los bloques más valiosos. Es lo único que rinde contra una helada advectiva.");
+      if(recursos.calor) noche.push("Si enciendes calentadores, colócalos en el perímetro por donde entra el viento; el calor se lo lleva la corriente y el rendimiento cae mucho.");
+      noche.push("No gastes el agua de aspersión: sin inversión térmica, el hielo no protege igual y el riesgo de romper ramas se mantiene.");
+    } else {
+      if(recursos.aspersion){
+        if(tw < -3){
+          noche.push("<b>Aspersión desaconsejada:</b> con bulbo húmedo de "+tw.toFixed(1)+" °C, el enfriamiento evaporativo al arrancar puede bajar la temperatura por debajo del umbral. Solo procede si puedes sostener 4 mm/h o más sin cortes.");
+        } else {
+          noche.push("Arranca la aspersión <b>antes</b> de que el brote llegue a 0 °C, no cuando ya heló.");
+          noche.push("Aplica de 2.5 a 4 mm/h de forma continua. Más frío y más viento exigen más lámina.");
+          noche.push("<b>No la detengas</b> hasta que el hielo se derrita y la temperatura suba de 0 °C con el sol. Cortarla a media noche causa más daño que no haber regado.");
+          noche.push("Vigila el peso del hielo en ramas cargadas; si empiezan a doblarse, revisa antes de que truene la madera.");
+        }
+      }
+      if(recursos.micro){
+        noche.push("La microaspersión bajo copa da 1–2 °C con mucho menos agua y sin riesgo de ramas rotas. Es la mejor opción si la mínima esperada no baja de "+(k10-1.5).toFixed(1)+" °C.");
+      }
+      if(recursos.calor){
+        noche.push("Muchos focos pequeños rinden más que pocos grandes. Densifica en los puntos bajos y en el borde por donde escurre el aire frío.");
+      }
+      if(recursos.manta){
+        noche.push("Cubre primero los árboles jóvenes: son los que menos reserva tienen y los que más pierdes si se dañan.");
+      }
+      if(!recursos.aspersion && !recursos.micro && !recursos.calor && !recursos.manta){
+        noche.push("No marcaste recursos disponibles. Con suelo húmedo, hierba corta y drenaje de aire abierto todavía puedes ganar 1–2 °C sin equipo.");
+      }
+      noche.push("Coloca el termómetro de control a <b>altura de brote</b> en el punto más bajo del huerto. Entre ese punto y una caseta a 1.5 m puede haber 2 °C de diferencia.");
+    }
+    html += lista("De madrugada", noche);
+
+    // ── Avisos ──
+    html += '<div class="aviso"><b>El humo no protege.</b> Sus partículas son demasiado pequeñas para frenar la radiación infrarroja que escapa, y en la mañana bloquea el sol y alarga la exposición al frío. Lo que sirve del fuego es el calor, no el humo.</div>';
+
+    if(margen <= 0 && !advectiva){
+      html += '<div class="aviso"><b>Ya estás bajo el umbral.</b> A '+temp.toFixed(1)+' °C con este estado fenológico el daño está ocurriendo. Prioriza los bloques más avanzados en floración y documenta la hora de inicio: sirve para el reclamo de seguro y para el histórico del huerto.</div>';
+    }
+
+    html += '<p class="nota">Registra temperatura, hora y acción tomada cada 30 minutos. Ese registro es lo que después permite calibrar los umbrales reales de tu huerto, que casi nunca coinciden con los de tabla.</p>';
+
+    el("salida").innerHTML = html;
+    el("salida").hidden = false;
+    el("salida").scrollIntoView({behavior:"smooth", block:"start"});
+  });
+})();
+</script>
+</body>
+</html>
