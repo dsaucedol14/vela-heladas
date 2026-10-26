@@ -1,1166 +1,1166 @@
 {
   "municipio": "Huauchinango",
-  "actualizado": "2026-10-26T06:05:55+00:00",
+  "actualizado": "2026-10-26T12:50:59+00:00",
   "datos": [
     {
-      "hloc": "20261024T18",
+      "hloc": "20261025T18",
       "temp": "14.1",
-      "hr": "96.8",
-      "velvien": "3.8",
+      "hr": "98.2",
+      "velvien": "5.8",
       "desciel": "Despejado",
       "probprec": "0.0",
-      "raf": "2.9",
-      "dirvieng": "63.4"
+      "raf": "6.5",
+      "dirvieng": "47.5"
     },
     {
-      "hloc": "20261024T19",
-      "temp": "13.6",
-      "hr": "97.3",
-      "velvien": "1.1",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "3.2",
-      "dirvieng": "147.5"
-    },
-    {
-      "hloc": "20261024T20",
-      "temp": "13.7",
-      "hr": "95.8",
-      "velvien": "1.0",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "3.3",
-      "dirvieng": "234.6"
-    },
-    {
-      "hloc": "20261024T21",
-      "temp": "13.5",
-      "hr": "95.0",
-      "velvien": "2.1",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.3",
-      "dirvieng": "212.9"
-    },
-    {
-      "hloc": "20261024T22",
-      "temp": "13.6",
-      "hr": "92.7",
-      "velvien": "2.6",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.4",
-      "dirvieng": "219.8"
-    },
-    {
-      "hloc": "20261024T23",
-      "temp": "13.4",
-      "hr": "91.7",
-      "velvien": "1.8",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "3.6",
-      "dirvieng": "202.4"
-    },
-    {
-      "hloc": "20261025T00",
-      "temp": "13.1",
-      "hr": "92.1",
-      "velvien": "1.8",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "3.6",
-      "dirvieng": "192.8"
-    },
-    {
-      "hloc": "20261025T01",
-      "temp": "13.0",
-      "hr": "92.2",
-      "velvien": "2.7",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.4",
-      "dirvieng": "221.2"
-    },
-    {
-      "hloc": "20261025T02",
-      "temp": "12.7",
-      "hr": "92.2",
-      "velvien": "2.9",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.7",
-      "dirvieng": "227.8"
-    },
-    {
-      "hloc": "20261025T03",
-      "temp": "12.8",
-      "hr": "91.4",
-      "velvien": "3.1",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "5.1",
-      "dirvieng": "220.4"
-    },
-    {
-      "hloc": "20261025T04",
-      "temp": "12.7",
-      "hr": "91.1",
-      "velvien": "2.6",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.7",
-      "dirvieng": "233.7"
-    },
-    {
-      "hloc": "20261025T05",
-      "temp": "12.6",
-      "hr": "91.0",
-      "velvien": "1.6",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.3",
-      "dirvieng": "239.6"
-    },
-    {
-      "hloc": "20261025T06",
-      "temp": "12.2",
-      "hr": "92.3",
-      "velvien": "3.0",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "5.5",
-      "dirvieng": "252.3"
-    },
-    {
-      "hloc": "20261025T07",
-      "temp": "12.6",
-      "hr": "90.6",
-      "velvien": "2.6",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "5.1",
-      "dirvieng": "245.3"
-    },
-    {
-      "hloc": "20261025T08",
+      "hloc": "20261025T19",
       "temp": "14.1",
-      "hr": "85.2",
-      "velvien": "0.4",
+      "hr": "98.8",
+      "velvien": "5.2",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
-      "raf": "3.6",
-      "dirvieng": "298.4"
+      "raf": "6.2",
+      "dirvieng": "50.8"
     },
     {
-      "hloc": "20261025T09",
-      "temp": "15.8",
-      "hr": "77.3",
-      "velvien": "4.7",
+      "hloc": "20261025T20",
+      "temp": "14.2",
+      "hr": "99.1",
+      "velvien": "5.0",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
-      "raf": "2.9",
-      "dirvieng": "49.0"
+      "raf": "6.5",
+      "dirvieng": "55.4"
     },
     {
-      "hloc": "20261025T10",
-      "temp": "16.3",
-      "hr": "76.8",
-      "velvien": "7.1",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.3",
-      "dirvieng": "51.8"
-    },
-    {
-      "hloc": "20261025T11",
-      "temp": "16.1",
-      "hr": "80.7",
-      "velvien": "7.3",
+      "hloc": "20261025T21",
+      "temp": "14.2",
+      "hr": "99.3",
+      "velvien": "4.4",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
       "raf": "5.1",
-      "dirvieng": "46.8"
+      "dirvieng": "52.1"
     },
     {
-      "hloc": "20261025T12",
-      "temp": "16.0",
-      "hr": "83.6",
-      "velvien": "7.0",
+      "hloc": "20261025T22",
+      "temp": "14.2",
+      "hr": "99.4",
+      "velvien": "4.0",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
-      "raf": "5.8",
-      "dirvieng": "43.5"
+      "raf": "4.0",
+      "dirvieng": "53.0"
     },
     {
-      "hloc": "20261025T13",
-      "temp": "16.4",
-      "hr": "84.1",
-      "velvien": "6.9",
+      "hloc": "20261025T23",
+      "temp": "14.1",
+      "hr": "99.4",
+      "velvien": "3.9",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
       "raf": "5.4",
-      "dirvieng": "46.3"
+      "dirvieng": "57.4"
     },
     {
-      "hloc": "20261025T14",
-      "temp": "16.2",
-      "hr": "85.5",
-      "velvien": "7.3",
+      "hloc": "20261026T00",
+      "temp": "14.1",
+      "hr": "99.4",
+      "velvien": "3.5",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
-      "raf": "6.9",
-      "dirvieng": "47.0"
+      "raf": "5.9",
+      "dirvieng": "40.3"
     },
     {
-      "hloc": "20261025T15",
-      "temp": "15.9",
-      "hr": "89.0",
-      "velvien": "7.9",
+      "hloc": "20261026T01",
+      "temp": "13.9",
+      "hr": "99.1",
+      "velvien": "3.2",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
-      "raf": "7.3",
-      "dirvieng": "51.1"
+      "raf": "5.1",
+      "dirvieng": "38.3"
     },
     {
-      "hloc": "20261025T16",
-      "temp": "15.7",
-      "hr": "89.7",
-      "velvien": "7.0",
+      "hloc": "20261026T02",
+      "temp": "13.8",
+      "hr": "98.4",
+      "velvien": "1.8",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "4.1",
+      "dirvieng": "11.5"
+    },
+    {
+      "hloc": "20261026T03",
+      "temp": "13.8",
+      "hr": "98.0",
+      "velvien": "0.9",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "4.4",
+      "dirvieng": "349.8"
+    },
+    {
+      "hloc": "20261026T04",
+      "temp": "13.8",
+      "hr": "97.5",
+      "velvien": "0.6",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "5.1",
+      "dirvieng": "208.3"
+    },
+    {
+      "hloc": "20261026T05",
+      "temp": "13.6",
+      "hr": "96.6",
+      "velvien": "1.8",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "4.4",
+      "dirvieng": "222.1"
+    },
+    {
+      "hloc": "20261026T06",
+      "temp": "13.1",
+      "hr": "96.5",
+      "velvien": "1.8",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "3.8",
+      "dirvieng": "195.7"
+    },
+    {
+      "hloc": "20261026T07",
+      "temp": "13.0",
+      "hr": "96.1",
+      "velvien": "0.6",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "2.5",
+      "dirvieng": "328.0"
+    },
+    {
+      "hloc": "20261026T08",
+      "temp": "14.2",
+      "hr": "92.8",
+      "velvien": "2.3",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "2.6",
+      "dirvieng": "33.4"
+    },
+    {
+      "hloc": "20261026T09",
+      "temp": "15.6",
+      "hr": "85.7",
+      "velvien": "4.1",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "1.5",
+      "dirvieng": "54.8"
+    },
+    {
+      "hloc": "20261026T10",
+      "temp": "17.2",
+      "hr": "77.8",
+      "velvien": "6.9",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "3.3",
+      "dirvieng": "56.0"
+    },
+    {
+      "hloc": "20261026T11",
+      "temp": "18.4",
+      "hr": "70.7",
+      "velvien": "9.2",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "5.4",
+      "dirvieng": "54.5"
+    },
+    {
+      "hloc": "20261026T12",
+      "temp": "19.0",
+      "hr": "67.8",
+      "velvien": "10.4",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "6.1",
+      "dirvieng": "48.9"
+    },
+    {
+      "hloc": "20261026T13",
+      "temp": "18.8",
+      "hr": "69.2",
+      "velvien": "11.1",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "6.5",
+      "dirvieng": "48.1"
+    },
+    {
+      "hloc": "20261026T14",
+      "temp": "18.5",
+      "hr": "71.5",
+      "velvien": "10.8",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "6.5",
+      "dirvieng": "49.8"
+    },
+    {
+      "hloc": "20261026T15",
+      "temp": "18.0",
+      "hr": "74.6",
+      "velvien": "10.1",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "6.1",
+      "dirvieng": "50.7"
+    },
+    {
+      "hloc": "20261026T16",
+      "temp": "17.1",
+      "hr": "79.5",
+      "velvien": "8.9",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
       "raf": "5.4",
       "dirvieng": "52.0"
     },
     {
-      "hloc": "20261025T17",
-      "temp": "14.9",
-      "hr": "93.8",
-      "velvien": "6.0",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "5.8",
-      "dirvieng": "56.1"
-    },
-    {
-      "hloc": "20261025T18",
-      "temp": "13.9",
-      "hr": "97.7",
-      "velvien": "5.6",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "6.2",
-      "dirvieng": "54.1"
-    },
-    {
-      "hloc": "20261025T19",
-      "temp": "13.7",
-      "hr": "98.6",
-      "velvien": "3.9",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.0",
-      "dirvieng": "55.1"
-    },
-    {
-      "hloc": "20261025T20",
-      "temp": "13.8",
-      "hr": "98.8",
-      "velvien": "3.2",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "2.5",
-      "dirvieng": "61.7"
-    },
-    {
-      "hloc": "20261025T21",
-      "temp": "13.8",
-      "hr": "98.8",
-      "velvien": "2.7",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "1.5",
-      "dirvieng": "61.7"
-    },
-    {
-      "hloc": "20261025T22",
-      "temp": "13.7",
-      "hr": "98.6",
-      "velvien": "2.3",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "1.9",
-      "dirvieng": "73.4"
-    },
-    {
-      "hloc": "20261025T23",
-      "temp": "13.5",
-      "hr": "98.3",
-      "velvien": "1.9",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "2.5",
-      "dirvieng": "86.2"
-    },
-    {
-      "hloc": "20261026T00",
-      "temp": "13.4",
-      "hr": "98.0",
-      "velvien": "1.4",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "3.7",
-      "dirvieng": "110.9"
-    },
-    {
-      "hloc": "20261026T01",
-      "temp": "13.2",
-      "hr": "97.2",
-      "velvien": "1.3",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "3.6",
-      "dirvieng": "204.9"
-    },
-    {
-      "hloc": "20261026T02",
-      "temp": "13.1",
-      "hr": "95.8",
-      "velvien": "2.6",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.0",
-      "dirvieng": "219.9"
-    },
-    {
-      "hloc": "20261026T03",
-      "temp": "12.6",
-      "hr": "95.4",
-      "velvien": "2.4",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "3.6",
-      "dirvieng": "205.1"
-    },
-    {
-      "hloc": "20261026T04",
-      "temp": "12.4",
-      "hr": "95.5",
-      "velvien": "2.4",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.0",
-      "dirvieng": "214.5"
-    },
-    {
-      "hloc": "20261026T05",
-      "temp": "12.2",
-      "hr": "95.3",
-      "velvien": "3.3",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.3",
-      "dirvieng": "216.1"
-    },
-    {
-      "hloc": "20261026T06",
-      "temp": "11.6",
-      "hr": "95.0",
-      "velvien": "4.2",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.7",
-      "dirvieng": "204.5"
-    },
-    {
-      "hloc": "20261026T07",
-      "temp": "12.0",
-      "hr": "93.5",
-      "velvien": "4.4",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.8",
-      "dirvieng": "218.0"
-    },
-    {
-      "hloc": "20261026T08",
-      "temp": "14.0",
-      "hr": "86.6",
-      "velvien": "0.9",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "1.1",
-      "dirvieng": "122.5"
-    },
-    {
-      "hloc": "20261026T09",
-      "temp": "15.2",
-      "hr": "80.0",
-      "velvien": "4.8",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "2.6",
-      "dirvieng": "59.2"
-    },
-    {
-      "hloc": "20261026T10",
-      "temp": "16.7",
-      "hr": "70.6",
+      "hloc": "20261026T17",
+      "temp": "15.9",
+      "hr": "87.4",
       "velvien": "6.8",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
-      "raf": "4.0",
-      "dirvieng": "51.0"
-    },
-    {
-      "hloc": "20261026T11",
-      "temp": "18.1",
-      "hr": "62.9",
-      "velvien": "8.8",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "5.8",
-      "dirvieng": "53.5"
-    },
-    {
-      "hloc": "20261026T12",
-      "temp": "18.6",
-      "hr": "62.4",
-      "velvien": "10.6",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "6.5",
-      "dirvieng": "50.4"
-    },
-    {
-      "hloc": "20261026T13",
-      "temp": "18.8",
-      "hr": "65.7",
-      "velvien": "11.3",
-      "desciel": "Medio nublado",
-      "probprec": "0.0",
-      "raf": "6.5",
-      "dirvieng": "49.0"
-    },
-    {
-      "hloc": "20261026T14",
-      "temp": "18.0",
-      "hr": "72.8",
-      "velvien": "11.0",
-      "desciel": "Medio nublado",
-      "probprec": "0.0",
-      "raf": "6.9",
-      "dirvieng": "47.6"
-    },
-    {
-      "hloc": "20261026T15",
-      "temp": "16.5",
-      "hr": "84.9",
-      "velvien": "9.4",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "8.3",
-      "dirvieng": "45.6"
-    },
-    {
-      "hloc": "20261026T16",
-      "temp": "15.6",
-      "hr": "92.0",
-      "velvien": "7.8",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "8.0",
-      "dirvieng": "47.0"
-    },
-    {
-      "hloc": "20261026T17",
-      "temp": "14.9",
-      "hr": "96.5",
-      "velvien": "6.3",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "8.0",
-      "dirvieng": "48.0"
+      "raf": "6.2",
+      "dirvieng": "55.4"
     },
     {
       "hloc": "20261026T18",
-      "temp": "14.2",
-      "hr": "98.0",
-      "velvien": "5.1",
+      "temp": "14.3",
+      "hr": "96.2",
+      "velvien": "4.0",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
-      "raf": "6.6",
-      "dirvieng": "48.8"
+      "raf": "3.6",
+      "dirvieng": "62.2"
     },
     {
       "hloc": "20261026T19",
-      "temp": "14.0",
-      "hr": "98.0",
-      "velvien": "3.2",
+      "temp": "13.5",
+      "hr": "97.8",
+      "velvien": "0.8",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
-      "raf": "3.7",
-      "dirvieng": "68.0"
+      "raf": "1.6",
+      "dirvieng": "129.0"
     },
     {
       "hloc": "20261026T20",
-      "temp": "13.8",
-      "hr": "97.7",
-      "velvien": "2.3",
+      "temp": "13.3",
+      "hr": "96.1",
+      "velvien": "2.4",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
       "raf": "3.3",
-      "dirvieng": "76.2"
+      "dirvieng": "181.5"
     },
     {
       "hloc": "20261026T21",
-      "temp": "13.7",
-      "hr": "97.4",
-      "velvien": "1.0",
+      "temp": "12.9",
+      "hr": "95.4",
+      "velvien": "3.5",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
-      "raf": "2.3",
-      "dirvieng": "88.2"
+      "raf": "4.0",
+      "dirvieng": "200.9"
     },
     {
       "hloc": "20261026T22",
-      "temp": "13.6",
-      "hr": "97.0",
-      "velvien": "1.0",
-      "desciel": "Cielo nublado",
+      "temp": "12.7",
+      "hr": "93.4",
+      "velvien": "4.9",
+      "desciel": "Medio nublado",
       "probprec": "0.0",
-      "raf": "2.3",
-      "dirvieng": "128.3"
+      "raf": "4.7",
+      "dirvieng": "209.7"
     },
     {
       "hloc": "20261026T23",
-      "temp": "13.6",
-      "hr": "96.3",
-      "velvien": "1.5",
-      "desciel": "Cielo nublado",
+      "temp": "12.5",
+      "hr": "91.0",
+      "velvien": "5.2",
+      "desciel": "Medio nublado",
       "probprec": "0.0",
-      "raf": "3.3",
-      "dirvieng": "213.1"
+      "raf": "4.7",
+      "dirvieng": "219.3"
     },
     {
       "hloc": "20261027T00",
-      "temp": "13.6",
-      "hr": "95.1",
-      "velvien": "3.6",
-      "desciel": "Cielo nublado",
+      "temp": "12.5",
+      "hr": "89.1",
+      "velvien": "5.2",
+      "desciel": "Medio nublado",
       "probprec": "0.0",
-      "raf": "4.4",
-      "dirvieng": "209.3"
+      "raf": "4.3",
+      "dirvieng": "220.9"
     },
     {
       "hloc": "20261027T01",
-      "temp": "13.5",
-      "hr": "94.1",
-      "velvien": "2.9",
-      "desciel": "Cielo nublado",
+      "temp": "12.4",
+      "hr": "87.6",
+      "velvien": "5.3",
+      "desciel": "Poco nuboso",
       "probprec": "0.0",
-      "raf": "2.5",
-      "dirvieng": "209.6"
+      "raf": "4.8",
+      "dirvieng": "217.1"
     },
     {
       "hloc": "20261027T02",
-      "temp": "13.0",
-      "hr": "94.1",
-      "velvien": "3.4",
-      "desciel": "Cielo nublado",
+      "temp": "12.4",
+      "hr": "85.6",
+      "velvien": "5.6",
+      "desciel": "Poco nuboso",
       "probprec": "0.0",
-      "raf": "3.3",
-      "dirvieng": "238.5"
+      "raf": "4.7",
+      "dirvieng": "220.5"
     },
     {
       "hloc": "20261027T03",
       "temp": "12.4",
-      "hr": "94.4",
-      "velvien": "4.0",
-      "desciel": "Cielo nublado",
+      "hr": "84.4",
+      "velvien": "5.3",
+      "desciel": "Poco nuboso",
       "probprec": "0.0",
-      "raf": "4.1",
-      "dirvieng": "218.5"
+      "raf": "4.3",
+      "dirvieng": "228.5"
     },
     {
       "hloc": "20261027T04",
-      "temp": "12.2",
-      "hr": "94.0",
-      "velvien": "4.2",
-      "desciel": "Cielo nublado",
+      "temp": "12.4",
+      "hr": "84.5",
+      "velvien": "4.8",
+      "desciel": "Poco nuboso",
       "probprec": "0.0",
-      "raf": "4.7",
-      "dirvieng": "212.6"
+      "raf": "4.0",
+      "dirvieng": "227.6"
     },
     {
       "hloc": "20261027T05",
-      "temp": "11.8",
-      "hr": "94.2",
-      "velvien": "4.1",
-      "desciel": "Cielo nublado",
+      "temp": "12.0",
+      "hr": "86.1",
+      "velvien": "5.5",
+      "desciel": "Poco nuboso",
       "probprec": "0.0",
-      "raf": "4.7",
-      "dirvieng": "216.1"
+      "raf": "4.8",
+      "dirvieng": "224.1"
     },
     {
       "hloc": "20261027T06",
-      "temp": "11.7",
-      "hr": "94.3",
-      "velvien": "4.8",
-      "desciel": "Cielo nublado",
+      "temp": "11.9",
+      "hr": "86.2",
+      "velvien": "5.7",
+      "desciel": "Poco nuboso",
       "probprec": "0.0",
-      "raf": "5.0",
-      "dirvieng": "212.7"
+      "raf": "5.5",
+      "dirvieng": "226.0"
     },
     {
       "hloc": "20261027T07",
-      "temp": "12.2",
-      "hr": "93.2",
-      "velvien": "5.1",
-      "desciel": "Medio nublado",
+      "temp": "12.4",
+      "hr": "85.4",
+      "velvien": "5.9",
+      "desciel": "Despejado",
       "probprec": "0.0",
       "raf": "5.4",
-      "dirvieng": "216.5"
+      "dirvieng": "221.9"
     },
     {
       "hloc": "20261027T08",
-      "temp": "14.6",
-      "hr": "86.6",
-      "velvien": "1.2",
-      "desciel": "Medio nublado",
+      "temp": "15.4",
+      "hr": "75.8",
+      "velvien": "0.4",
+      "desciel": "Despejado",
       "probprec": "0.0",
-      "raf": "2.2",
-      "dirvieng": "172.7"
+      "raf": "1.2",
+      "dirvieng": "68.1"
     },
     {
       "hloc": "20261027T09",
-      "temp": "16.3",
-      "hr": "81.0",
+      "temp": "17.1",
+      "hr": "71.3",
       "velvien": "5.2",
-      "desciel": "Poco nuboso",
+      "desciel": "Despejado",
       "probprec": "0.0",
-      "raf": "2.6",
-      "dirvieng": "58.3"
+      "raf": "2.9",
+      "dirvieng": "65.1"
     },
     {
       "hloc": "20261027T10",
-      "temp": "17.8",
-      "hr": "75.7",
-      "velvien": "7.9",
-      "desciel": "Poco nuboso",
+      "temp": "18.5",
+      "hr": "69.0",
+      "velvien": "7.8",
+      "desciel": "Despejado",
       "probprec": "0.0",
-      "raf": "3.3",
-      "dirvieng": "48.1"
+      "raf": "4.7",
+      "dirvieng": "56.0"
     },
     {
       "hloc": "20261027T11",
-      "temp": "18.6",
-      "hr": "73.4",
-      "velvien": "9.3",
-      "desciel": "Medio nublado",
+      "temp": "19.5",
+      "hr": "67.9",
+      "velvien": "10.0",
+      "desciel": "Despejado",
       "probprec": "0.0",
-      "raf": "4.7",
-      "dirvieng": "49.2"
+      "raf": "6.2",
+      "dirvieng": "51.8"
     },
     {
       "hloc": "20261027T12",
-      "temp": "18.0",
-      "hr": "80.9",
-      "velvien": "10.1",
-      "desciel": "Medio nublado",
+      "temp": "19.9",
+      "hr": "69.2",
+      "velvien": "11.4",
+      "desciel": "Poco nuboso",
       "probprec": "0.0",
-      "raf": "5.9",
-      "dirvieng": "49.0"
+      "raf": "6.1",
+      "dirvieng": "50.3"
     },
     {
       "hloc": "20261027T13",
-      "temp": "17.4",
-      "hr": "86.3",
-      "velvien": "9.3",
+      "temp": "18.7",
+      "hr": "78.9",
+      "velvien": "10.7",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
       "raf": "6.5",
-      "dirvieng": "52.3"
+      "dirvieng": "52.4"
     },
     {
       "hloc": "20261027T14",
-      "temp": "17.0",
-      "hr": "88.7",
-      "velvien": "8.4",
+      "temp": "18.4",
+      "hr": "82.8",
+      "velvien": "9.4",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
-      "raf": "6.8",
-      "dirvieng": "51.7"
+      "raf": "6.5",
+      "dirvieng": "53.4"
     },
     {
       "hloc": "20261027T15",
-      "temp": "16.4",
-      "hr": "91.8",
-      "velvien": "7.5",
+      "temp": "17.5",
+      "hr": "87.7",
+      "velvien": "8.4",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
-      "raf": "6.5",
-      "dirvieng": "54.3"
+      "raf": "6.2",
+      "dirvieng": "55.2"
     },
     {
       "hloc": "20261027T16",
-      "temp": "15.8",
-      "hr": "95.8",
-      "velvien": "6.2",
+      "temp": "16.7",
+      "hr": "91.7",
+      "velvien": "7.0",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
       "raf": "6.5",
-      "dirvieng": "60.0"
+      "dirvieng": "60.2"
     },
     {
       "hloc": "20261027T17",
-      "temp": "15.3",
-      "hr": "97.6",
-      "velvien": "4.6",
+      "temp": "16.0",
+      "hr": "96.2",
+      "velvien": "5.5",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
-      "raf": "5.1",
-      "dirvieng": "63.6"
+      "raf": "6.2",
+      "dirvieng": "66.6"
     },
     {
       "hloc": "20261027T18",
-      "temp": "14.8",
-      "hr": "98.2",
-      "velvien": "3.2",
+      "temp": "15.3",
+      "hr": "97.7",
+      "velvien": "4.3",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
-      "raf": "4.3",
-      "dirvieng": "69.9"
+      "raf": "5.1",
+      "dirvieng": "73.5"
     },
     {
       "hloc": "20261027T19",
-      "temp": "14.7",
-      "hr": "98.4",
-      "velvien": "1.0",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "3.0",
-      "dirvieng": "92.3"
-    },
-    {
-      "hloc": "20261027T20",
-      "temp": "14.6",
-      "hr": "98.3",
-      "velvien": "0.7",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "2.5",
-      "dirvieng": "122.0"
-    },
-    {
-      "hloc": "20261027T21",
-      "temp": "14.1",
+      "temp": "15.1",
       "hr": "98.1",
-      "velvien": "1.2",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "3.2",
-      "dirvieng": "188.6"
-    },
-    {
-      "hloc": "20261027T22",
-      "temp": "13.9",
-      "hr": "97.8",
-      "velvien": "2.6",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.1",
-      "dirvieng": "209.7"
-    },
-    {
-      "hloc": "20261027T23",
-      "temp": "13.8",
-      "hr": "96.8",
-      "velvien": "3.2",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.7",
-      "dirvieng": "229.6"
-    },
-    {
-      "hloc": "20261028T00",
-      "temp": "13.8",
-      "hr": "95.9",
       "velvien": "3.5",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
-      "raf": "4.7",
-      "dirvieng": "222.8"
+      "raf": "3.7",
+      "dirvieng": "83.3"
+    },
+    {
+      "hloc": "20261027T20",
+      "temp": "14.8",
+      "hr": "98.2",
+      "velvien": "2.6",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "3.6",
+      "dirvieng": "99.1"
+    },
+    {
+      "hloc": "20261027T21",
+      "temp": "14.7",
+      "hr": "97.8",
+      "velvien": "2.3",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "3.3",
+      "dirvieng": "114.8"
+    },
+    {
+      "hloc": "20261027T22",
+      "temp": "14.5",
+      "hr": "97.4",
+      "velvien": "1.6",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "2.6",
+      "dirvieng": "143.8"
+    },
+    {
+      "hloc": "20261027T23",
+      "temp": "14.5",
+      "hr": "96.0",
+      "velvien": "1.7",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "2.3",
+      "dirvieng": "216.6"
+    },
+    {
+      "hloc": "20261028T00",
+      "temp": "14.3",
+      "hr": "95.0",
+      "velvien": "2.0",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "1.8",
+      "dirvieng": "213.0"
     },
     {
       "hloc": "20261028T01",
-      "temp": "13.8",
-      "hr": "95.0",
+      "temp": "14.1",
+      "hr": "94.1",
+      "velvien": "2.7",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "2.6",
+      "dirvieng": "221.8"
+    },
+    {
+      "hloc": "20261028T02",
+      "temp": "14.0",
+      "hr": "93.1",
+      "velvien": "3.7",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "3.6",
+      "dirvieng": "220.5"
+    },
+    {
+      "hloc": "20261028T03",
+      "temp": "13.9",
+      "hr": "92.1",
+      "velvien": "3.9",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "4.4",
+      "dirvieng": "227.8"
+    },
+    {
+      "hloc": "20261028T04",
+      "temp": "14.1",
+      "hr": "91.6",
+      "velvien": "3.2",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "3.7",
+      "dirvieng": "241.1"
+    },
+    {
+      "hloc": "20261028T05",
+      "temp": "14.0",
+      "hr": "92.0",
+      "velvien": "2.0",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "2.9",
+      "dirvieng": "200.1"
+    },
+    {
+      "hloc": "20261028T06",
+      "temp": "13.5",
+      "hr": "93.6",
       "velvien": "2.7",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
       "raf": "4.0",
-      "dirvieng": "225.5"
-    },
-    {
-      "hloc": "20261028T02",
-      "temp": "13.7",
-      "hr": "95.1",
-      "velvien": "2.5",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.4",
-      "dirvieng": "236.2"
-    },
-    {
-      "hloc": "20261028T03",
-      "temp": "13.6",
-      "hr": "94.9",
-      "velvien": "2.0",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.1",
-      "dirvieng": "222.3"
-    },
-    {
-      "hloc": "20261028T04",
-      "temp": "13.7",
-      "hr": "95.1",
-      "velvien": "2.7",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.7",
-      "dirvieng": "226.8"
-    },
-    {
-      "hloc": "20261028T05",
-      "temp": "13.8",
-      "hr": "94.9",
-      "velvien": "0.6",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "2.5",
-      "dirvieng": "213.7"
-    },
-    {
-      "hloc": "20261028T06",
-      "temp": "13.9",
-      "hr": "95.2",
-      "velvien": "1.4",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "3.3",
-      "dirvieng": "246.0"
+      "dirvieng": "210.4"
     },
     {
       "hloc": "20261028T07",
-      "temp": "14.2",
-      "hr": "94.9",
-      "velvien": "1.1",
-      "desciel": "Cielo nublado",
+      "temp": "13.6",
+      "hr": "93.6",
+      "velvien": "2.8",
+      "desciel": "Medio nublado",
       "probprec": "0.0",
-      "raf": "2.6",
-      "dirvieng": "245.5"
+      "raf": "4.3",
+      "dirvieng": "205.2"
     },
     {
       "hloc": "20261028T08",
-      "temp": "15.1",
-      "hr": "92.9",
-      "velvien": "1.9",
-      "desciel": "Cielo nublado",
+      "temp": "15.5",
+      "hr": "89.2",
+      "velvien": "1.6",
+      "desciel": "Medio nublado",
       "probprec": "0.0",
       "raf": "1.4",
-      "dirvieng": "57.7"
+      "dirvieng": "92.7"
     },
     {
       "hloc": "20261028T09",
-      "temp": "16.3",
-      "hr": "89.0",
-      "velvien": "3.6",
-      "desciel": "Cielo nublado",
+      "temp": "17.1",
+      "hr": "84.6",
+      "velvien": "4.6",
+      "desciel": "Medio nublado",
       "probprec": "0.0",
-      "raf": "0.9",
-      "dirvieng": "51.0"
+      "raf": "1.8",
+      "dirvieng": "58.7"
     },
     {
       "hloc": "20261028T10",
-      "temp": "17.3",
-      "hr": "84.9",
-      "velvien": "6.2",
-      "desciel": "Cielo nublado",
+      "temp": "18.1",
+      "hr": "79.3",
+      "velvien": "7.2",
+      "desciel": "Medio nublado",
       "probprec": "0.0",
-      "raf": "3.4",
-      "dirvieng": "49.1"
+      "raf": "4.3",
+      "dirvieng": "63.5"
     },
     {
       "hloc": "20261028T11",
-      "temp": "17.7",
-      "hr": "84.8",
-      "velvien": "7.1",
-      "desciel": "Cielo nublado",
+      "temp": "18.9",
+      "hr": "77.2",
+      "velvien": "8.6",
+      "desciel": "Medio nublado",
       "probprec": "0.0",
-      "raf": "4.8",
-      "dirvieng": "52.6"
+      "raf": "4.7",
+      "dirvieng": "53.6"
     },
     {
       "hloc": "20261028T12",
-      "temp": "17.4",
-      "hr": "87.8",
-      "velvien": "7.6",
-      "desciel": "Cielo nublado",
+      "temp": "18.5",
+      "hr": "81.8",
+      "velvien": "9.4",
+      "desciel": "Medio nublado",
       "probprec": "0.0",
-      "raf": "5.5",
-      "dirvieng": "51.1"
+      "raf": "5.9",
+      "dirvieng": "53.7"
     },
     {
       "hloc": "20261028T13",
-      "temp": "17.5",
-      "hr": "88.6",
-      "velvien": "8.1",
+      "temp": "18.1",
+      "hr": "86.4",
+      "velvien": "9.8",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
-      "raf": "7.0",
-      "dirvieng": "50.5"
+      "raf": "7.9",
+      "dirvieng": "48.8"
     },
     {
       "hloc": "20261028T14",
-      "temp": "17.1",
-      "hr": "91.2",
-      "velvien": "8.0",
+      "temp": "17.5",
+      "hr": "91.3",
+      "velvien": "9.3",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
-      "raf": "8.0",
-      "dirvieng": "53.1"
+      "raf": "8.7",
+      "dirvieng": "50.2"
     },
     {
       "hloc": "20261028T15",
-      "temp": "16.6",
-      "hr": "94.2",
-      "velvien": "7.1",
+      "temp": "17.0",
+      "hr": "93.0",
+      "velvien": "7.5",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
-      "raf": "8.3",
-      "dirvieng": "53.3"
+      "raf": "8.0",
+      "dirvieng": "50.6"
     },
     {
       "hloc": "20261028T16",
-      "temp": "16.3",
-      "hr": "95.8",
-      "velvien": "6.6",
+      "temp": "16.4",
+      "hr": "95.7",
+      "velvien": "6.5",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
-      "raf": "8.6",
-      "dirvieng": "56.1"
+      "raf": "8.4",
+      "dirvieng": "54.4"
     },
     {
       "hloc": "20261028T17",
       "temp": "15.9",
-      "hr": "97.4",
-      "velvien": "5.6",
+      "hr": "96.5",
+      "velvien": "5.2",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
-      "raf": "8.0",
-      "dirvieng": "57.1"
+      "raf": "6.6",
+      "dirvieng": "62.6"
     },
     {
       "hloc": "20261028T18",
-      "temp": "15.3",
-      "hr": "98.0",
-      "velvien": "4.1",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.7",
-      "dirvieng": "64.0"
-    },
-    {
-      "hloc": "20261028T19",
-      "temp": "15.2",
-      "hr": "97.8",
-      "velvien": "2.7",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "3.7",
-      "dirvieng": "81.8"
-    },
-    {
-      "hloc": "20261028T20",
-      "temp": "15.1",
-      "hr": "97.5",
-      "velvien": "1.9",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "2.9",
-      "dirvieng": "86.0"
-    },
-    {
-      "hloc": "20261028T21",
-      "temp": "14.9",
-      "hr": "97.9",
-      "velvien": "1.3",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "2.2",
-      "dirvieng": "63.5"
-    },
-    {
-      "hloc": "20261028T22",
-      "temp": "14.6",
+      "temp": "15.5",
       "hr": "98.2",
-      "velvien": "1.0",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "2.3",
-      "dirvieng": "81.7"
-    },
-    {
-      "hloc": "20261028T23",
-      "temp": "14.3",
-      "hr": "97.1",
-      "velvien": "1.3",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "3.6",
-      "dirvieng": "182.0"
-    },
-    {
-      "hloc": "20261029T00",
-      "temp": "14.2",
-      "hr": "95.8",
-      "velvien": "1.6",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.0",
-      "dirvieng": "214.9"
-    },
-    {
-      "hloc": "20261029T01",
-      "temp": "14.1",
-      "hr": "94.0",
-      "velvien": "1.9",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.0",
-      "dirvieng": "210.3"
-    },
-    {
-      "hloc": "20261029T02",
-      "temp": "13.8",
-      "hr": "93.3",
-      "velvien": "3.2",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "4.7",
-      "dirvieng": "212.8"
-    },
-    {
-      "hloc": "20261029T03",
-      "temp": "13.5",
-      "hr": "93.1",
-      "velvien": "3.9",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "5.8",
-      "dirvieng": "213.1"
-    },
-    {
-      "hloc": "20261029T04",
-      "temp": "13.3",
-      "hr": "93.1",
       "velvien": "4.0",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
       "raf": "5.4",
-      "dirvieng": "219.2"
+      "dirvieng": "70.1"
     },
     {
-      "hloc": "20261029T05",
-      "temp": "12.9",
-      "hr": "93.3",
-      "velvien": "3.9",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "5.1",
-      "dirvieng": "220.1"
-    },
-    {
-      "hloc": "20261029T06",
-      "temp": "12.5",
-      "hr": "94.0",
-      "velvien": "4.5",
-      "desciel": "Medio nublado",
-      "probprec": "0.0",
-      "raf": "5.8",
-      "dirvieng": "215.3"
-    },
-    {
-      "hloc": "20261029T07",
-      "temp": "12.9",
-      "hr": "93.7",
-      "velvien": "5.3",
-      "desciel": "Medio nublado",
-      "probprec": "0.0",
-      "raf": "5.8",
-      "dirvieng": "223.6"
-    },
-    {
-      "hloc": "20261029T08",
+      "hloc": "20261028T19",
       "temp": "15.3",
-      "hr": "87.6",
-      "velvien": "1.0",
+      "hr": "98.2",
+      "velvien": "3.3",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
-      "raf": "2.2",
-      "dirvieng": "145.7"
+      "raf": "4.3",
+      "dirvieng": "75.1"
     },
     {
-      "hloc": "20261029T09",
-      "temp": "17.0",
-      "hr": "81.8",
-      "velvien": "4.2",
-      "desciel": "Cielo nublado",
-      "probprec": "0.0",
-      "raf": "1.4",
-      "dirvieng": "48.1"
-    },
-    {
-      "hloc": "20261029T10",
-      "temp": "18.5",
-      "hr": "74.5",
-      "velvien": "7.5",
+      "hloc": "20261028T20",
+      "temp": "15.2",
+      "hr": "97.7",
+      "velvien": "2.6",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
       "raf": "3.3",
-      "dirvieng": "47.9"
+      "dirvieng": "95.3"
+    },
+    {
+      "hloc": "20261028T21",
+      "temp": "15.1",
+      "hr": "97.6",
+      "velvien": "1.7",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "1.5",
+      "dirvieng": "70.5"
+    },
+    {
+      "hloc": "20261028T22",
+      "temp": "14.8",
+      "hr": "98.0",
+      "velvien": "1.2",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "1.5",
+      "dirvieng": "81.1"
+    },
+    {
+      "hloc": "20261028T23",
+      "temp": "14.6",
+      "hr": "98.2",
+      "velvien": "0.5",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "2.9",
+      "dirvieng": "198.4"
+    },
+    {
+      "hloc": "20261029T00",
+      "temp": "14.2",
+      "hr": "98.0",
+      "velvien": "2.1",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "4.3",
+      "dirvieng": "216.3"
+    },
+    {
+      "hloc": "20261029T01",
+      "temp": "14.2",
+      "hr": "96.9",
+      "velvien": "2.9",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "4.4",
+      "dirvieng": "203.5"
+    },
+    {
+      "hloc": "20261029T02",
+      "temp": "13.9",
+      "hr": "95.6",
+      "velvien": "3.1",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "3.6",
+      "dirvieng": "209.9"
+    },
+    {
+      "hloc": "20261029T03",
+      "temp": "13.6",
+      "hr": "94.9",
+      "velvien": "3.9",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "4.0",
+      "dirvieng": "209.2"
+    },
+    {
+      "hloc": "20261029T04",
+      "temp": "13.4",
+      "hr": "94.2",
+      "velvien": "4.5",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "4.7",
+      "dirvieng": "216.0"
+    },
+    {
+      "hloc": "20261029T05",
+      "temp": "13.1",
+      "hr": "94.0",
+      "velvien": "4.6",
+      "desciel": "Medio nublado",
+      "probprec": "0.0",
+      "raf": "4.8",
+      "dirvieng": "218.7"
+    },
+    {
+      "hloc": "20261029T06",
+      "temp": "12.9",
+      "hr": "93.3",
+      "velvien": "4.5",
+      "desciel": "Medio nublado",
+      "probprec": "0.0",
+      "raf": "4.8",
+      "dirvieng": "213.3"
+    },
+    {
+      "hloc": "20261029T07",
+      "temp": "13.3",
+      "hr": "92.9",
+      "velvien": "4.5",
+      "desciel": "Despejado",
+      "probprec": "0.0",
+      "raf": "4.7",
+      "dirvieng": "216.0"
+    },
+    {
+      "hloc": "20261029T08",
+      "temp": "15.6",
+      "hr": "87.3",
+      "velvien": "0.8",
+      "desciel": "Poco nuboso",
+      "probprec": "0.0",
+      "raf": "1.5",
+      "dirvieng": "154.6"
+    },
+    {
+      "hloc": "20261029T09",
+      "temp": "17.3",
+      "hr": "82.3",
+      "velvien": "4.4",
+      "desciel": "Despejado",
+      "probprec": "0.0",
+      "raf": "1.8",
+      "dirvieng": "47.8"
+    },
+    {
+      "hloc": "20261029T10",
+      "temp": "18.8",
+      "hr": "76.4",
+      "velvien": "7.3",
+      "desciel": "Poco nuboso",
+      "probprec": "0.0",
+      "raf": "3.3",
+      "dirvieng": "52.6"
     },
     {
       "hloc": "20261029T11",
-      "temp": "19.7",
-      "hr": "69.8",
-      "velvien": "10.0",
-      "desciel": "Cielo nublado",
+      "temp": "19.5",
+      "hr": "74.6",
+      "velvien": "9.2",
+      "desciel": "Poco nuboso",
       "probprec": "0.0",
-      "raf": "5.5",
-      "dirvieng": "48.1"
+      "raf": "4.4",
+      "dirvieng": "49.6"
     },
     {
       "hloc": "20261029T12",
-      "temp": "20.1",
-      "hr": "70.3",
-      "velvien": "11.4",
-      "desciel": "Cielo nublado",
+      "temp": "19.2",
+      "hr": "79.2",
+      "velvien": "9.8",
+      "desciel": "Poco nuboso",
       "probprec": "0.0",
-      "raf": "6.9",
-      "dirvieng": "48.9"
+      "raf": "5.4",
+      "dirvieng": "52.7"
     },
     {
       "hloc": "20261029T13",
-      "temp": "19.7",
-      "hr": "74.2",
-      "velvien": "11.0",
+      "temp": "18.4",
+      "hr": "84.9",
+      "velvien": "9.0",
       "desciel": "Cielo nublado",
       "probprec": "0.0",
-      "raf": "6.5",
-      "dirvieng": "49.1"
+      "raf": "6.6",
+      "dirvieng": "51.0"
+    },
+    {
+      "hloc": "20261029T14",
+      "temp": "17.7",
+      "hr": "89.6",
+      "velvien": "8.2",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "7.2",
+      "dirvieng": "50.1"
+    },
+    {
+      "hloc": "20261029T15",
+      "temp": "17.1",
+      "hr": "93.8",
+      "velvien": "6.9",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "6.9",
+      "dirvieng": "58.3"
+    },
+    {
+      "hloc": "20261029T16",
+      "temp": "16.6",
+      "hr": "95.9",
+      "velvien": "5.2",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "5.1",
+      "dirvieng": "64.3"
+    },
+    {
+      "hloc": "20261029T17",
+      "temp": "16.1",
+      "hr": "97.2",
+      "velvien": "3.5",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "3.6",
+      "dirvieng": "72.6"
+    },
+    {
+      "hloc": "20261029T18",
+      "temp": "15.6",
+      "hr": "97.7",
+      "velvien": "2.2",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "3.2",
+      "dirvieng": "85.9"
+    },
+    {
+      "hloc": "20261029T19",
+      "temp": "15.5",
+      "hr": "97.9",
+      "velvien": "2.0",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "3.3",
+      "dirvieng": "104.0"
+    },
+    {
+      "hloc": "20261029T20",
+      "temp": "15.4",
+      "hr": "97.6",
+      "velvien": "2.1",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "2.6",
+      "dirvieng": "119.6"
+    },
+    {
+      "hloc": "20261029T21",
+      "temp": "15.3",
+      "hr": "97.4",
+      "velvien": "1.8",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "1.8",
+      "dirvieng": "129.6"
+    },
+    {
+      "hloc": "20261029T22",
+      "temp": "15.3",
+      "hr": "97.3",
+      "velvien": "0.5",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "1.1",
+      "dirvieng": "169.6"
+    },
+    {
+      "hloc": "20261029T23",
+      "temp": "15.2",
+      "hr": "97.0",
+      "velvien": "1.0",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "1.5",
+      "dirvieng": "212.3"
+    },
+    {
+      "hloc": "20261030T00",
+      "temp": "15.1",
+      "hr": "96.3",
+      "velvien": "1.8",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "1.9",
+      "dirvieng": "198.7"
+    },
+    {
+      "hloc": "20261030T01",
+      "temp": "14.7",
+      "hr": "96.0",
+      "velvien": "2.4",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "2.5",
+      "dirvieng": "212.1"
+    },
+    {
+      "hloc": "20261030T02",
+      "temp": "14.3",
+      "hr": "95.7",
+      "velvien": "3.8",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "4.0",
+      "dirvieng": "236.9"
+    },
+    {
+      "hloc": "20261030T03",
+      "temp": "14.0",
+      "hr": "95.0",
+      "velvien": "5.3",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "4.7",
+      "dirvieng": "224.8"
+    },
+    {
+      "hloc": "20261030T04",
+      "temp": "13.7",
+      "hr": "94.1",
+      "velvien": "6.1",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "5.1",
+      "dirvieng": "223.5"
+    },
+    {
+      "hloc": "20261030T05",
+      "temp": "13.5",
+      "hr": "93.3",
+      "velvien": "6.6",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "5.4",
+      "dirvieng": "223.7"
+    },
+    {
+      "hloc": "20261030T06",
+      "temp": "13.4",
+      "hr": "92.4",
+      "velvien": "7.4",
+      "desciel": "Cielo nublado",
+      "probprec": "0.0",
+      "raf": "6.1",
+      "dirvieng": "221.7"
+    },
+    {
+      "hloc": "20261030T07",
+      "temp": "13.8",
+      "hr": "90.9",
+      "velvien": "7.4",
+      "desciel": "Despejado",
+      "probprec": "0.0",
+      "raf": "5.8",
+      "dirvieng": "226.3"
+    },
+    {
+      "hloc": "20261030T08",
+      "temp": "16.8",
+      "hr": "82.8",
+      "velvien": "0.9",
+      "desciel": "Despejado",
+      "probprec": "0.0",
+      "raf": "1.5",
+      "dirvieng": "267.0"
+    },
+    {
+      "hloc": "20261030T09",
+      "temp": "18.5",
+      "hr": "78.3",
+      "velvien": "4.7",
+      "desciel": "Poco nuboso",
+      "probprec": "0.0",
+      "raf": "1.8",
+      "dirvieng": "38.4"
+    },
+    {
+      "hloc": "20261030T10",
+      "temp": "20.1",
+      "hr": "72.3",
+      "velvien": "7.4",
+      "desciel": "Poco nuboso",
+      "probprec": "0.0",
+      "raf": "2.9",
+      "dirvieng": "46.2"
+    },
+    {
+      "hloc": "20261030T11",
+      "temp": "21.2",
+      "hr": "69.6",
+      "velvien": "9.6",
+      "desciel": "Poco nuboso",
+      "probprec": "0.0",
+      "raf": "5.1",
+      "dirvieng": "44.2"
+    },
+    {
+      "hloc": "20261030T12",
+      "temp": "21.4",
+      "hr": "72.2",
+      "velvien": "10.9",
+      "desciel": "Poco nuboso",
+      "probprec": "0.0",
+      "raf": "5.1",
+      "dirvieng": "43.8"
+    },
+    {
+      "hloc": "20261030T13",
+      "temp": "21.2",
+      "hr": "75.8",
+      "velvien": "11.0",
+      "desciel": "Medio nublado",
+      "probprec": "0.0",
+      "raf": "4.7",
+      "dirvieng": "48.3"
     }
   ]
 }
